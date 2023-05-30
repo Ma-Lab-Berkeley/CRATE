@@ -1,0 +1,11 @@
+__pycache__/
+checkpoint/
+log/
+
+#ignore all pyache
+*.pyc
+
+#ignore dataset
+*.tar.gz
+#ignore folders in data
+data/*
