@@ -30,6 +30,7 @@ parser.add_argument('--net', default='vit')
 parser.add_argument('--bs', type=int, default=50)
 parser.add_argument('--data', default="cifar10")
 parser.add_argument('--classes',type=int, default=10)
+parser.add_argument('--resume',type=int, default=1)
 parser.add_argument('--randomaug',type=int, default=1)
 parser.add_argument('--rand_aug_n',type=int, default=2)
 parser.add_argument('--rand_aug_m',type=int, default=14)
@@ -117,14 +118,14 @@ if 'cuda' in device:
     print("using data parallel")
     net = torch.nn.DataParallel(net) # make parallel
     cudnn.benchmark = True
-# if args.resume:
-#     # Load checkpoint.
-#     print('==> Resuming from checkpoint..')
-#     assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
-#     checkpoint = torch.load('./checkpoint/{}-ckpt.t7'.format(args.net))
-#     net.load_state_dict(checkpoint['net'])
-#     best_acc = checkpoint['acc']
-#     start_epoch = checkpoint['epoch']
+if args.resume:
+    # Load checkpoint.
+    print('==> Resuming from checkpoint..')
+    assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
+    checkpoint = torch.load('./checkpoint/{}-ckpt.t7'.format(args.net))
+    net.load_state_dict(checkpoint['net'])
+    best_acc = checkpoint['acc']
+    start_epoch = checkpoint['epoch']
 
 # Loss is CE
 criterion = nn.CrossEntropyLoss()
