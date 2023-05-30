@@ -111,7 +111,7 @@ class Transformer(nn.Module):
             # x = ff(grad_x) + x
         return x
 
-class RiT(nn.Module):
+class CRATE(nn.Module):
     def __init__(self, *, image_size, patch_size, num_classes, dim, depth, heads, mlp_dim, pool = 'cls', channels = 3, dim_head = 64, dropout = 0., emb_dropout = 0., ista=0.1):
         super().__init__()
         image_height, image_width = pair(image_size)
@@ -165,8 +165,8 @@ class RiT(nn.Module):
         return self.mlp_head(x)
 
 
-def rit_tiny():
-    return RiT(image_size=224,
+def CRATE_tiny():
+    return CRATE(image_size=224,
                     patch_size=16,
                     num_classes=1000,
                     dim=384,
@@ -177,8 +177,8 @@ def rit_tiny():
                     emb_dropout=0.0,
                     dim_head=384//6)
 
-def rit_small():
-    return RiT(image_size=224,
+def CRATE_small():
+    return CRATE(image_size=224,
                     patch_size=16,
                     num_classes=1000,
                     dim=576,
@@ -189,8 +189,8 @@ def rit_small():
                     emb_dropout=0.0,
                     dim_head=576//12)
 
-def rit_base():
-    return RiT(image_size=224,
+def CRATE_base():
+    return CRATE(image_size=224,
                 patch_size=16,
                 num_classes=1000,
                 dim=768,
@@ -201,8 +201,8 @@ def rit_base():
                 emb_dropout=0.0,
                 dim_head=768//12)
 
-def rit_large():
-    return RiT(image_size=224,
+def CRATE_large():
+    return CRATE(image_size=224,
                 patch_size=16,
                 num_classes=1000,
                 dim=1024,
