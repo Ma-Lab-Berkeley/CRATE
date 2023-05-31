@@ -5,9 +5,18 @@ Code for CRATE :takeout_box:.
 
 ```python
 from model.crate import CRATE
-net = CRATE(
-
-)
+CRATE_tiny = CRATE(
+    image_size=224,
+    patch_size=16,
+    num_classes=1000,
+    dim=384,
+    depth=12,
+    heads=6,
+    mlp_dim=384,
+    dropout=0.0,
+    emb_dropout=0.0,
+    dim_head=384//6
+    )
 ```
 ## Training CRATE on ImageNet
 ```python
