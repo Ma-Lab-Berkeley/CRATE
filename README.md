@@ -1,6 +1,15 @@
 # CRATE :takeout_box:
 Code for CRATE :takeout_box:.
 
+## Training CRATE on ImageNet
+```python
+python main.py --arch [CRATE_tiny, CRATE_small, CRATE_base, CRATE_large, vit_tiny, vit_small] --batch-size BATCH_SIZE --epochs EPOCHS --optimizer Lion --lr LEARNING_RATE --weight-decay WEIGHT_DECAY --print-freq 25 --data DATA_DIR
+```
+
+As an example, we use the following command for training CRATE_tiny:
+```python
+python main.py python main.py --arch CRATE_tiny --batch-size 512 --epochs 200 --optimizer Lion --lr 0.0002 --weight-decay 0.04  --print-freq 25 --data DATA_DIR
+```
 
 ## Finetuning pretrained CRATE
 
