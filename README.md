@@ -2,10 +2,10 @@
 Code for CRATE :takeout_box:.
 
 ## Construct a CRATE model
-
+A CRATE model can be defined using the following code. The given parameters are specified for CRATE-tiny.
 ```python
 from model.crate import CRATE
-CRATE_tiny = CRATE(
+net = CRATE(
     image_size=224,
     patch_size=16,
     num_classes=1000,
