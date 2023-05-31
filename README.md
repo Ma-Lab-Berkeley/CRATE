@@ -1,6 +1,14 @@
 # CRATE :takeout_box:
 Code for CRATE :takeout_box:.
 
+## Construct a CRATE model
+
+```python
+from model.crate import CRATE
+net = CRATE(
+
+)
+```
 ## Training CRATE on ImageNet
 ```python
 python main.py --arch [CRATE_tiny, CRATE_small, CRATE_base, CRATE_large, vit_tiny, vit_small] --batch-size BATCH_SIZE --epochs EPOCHS --optimizer Lion --lr LEARNING_RATE --weight-decay WEIGHT_DECAY --print-freq 25 --data DATA_DIR
@@ -22,5 +30,6 @@ python main.py python main.py --arch CRATE_tiny --batch-size 512 --epochs 200 --
 
 ```python
 python finetune.py --bs BATCH_SIZE --net [CRATE_tiny, CRATE_small, CRATE_base, CRATE_large, vit_tiny, vit_small] 
-    --opt [adamW, adam, sgd] --lr LEARNING_RATE --n_epochs N_EPOCHS --randomaug 1 --data [cifar10, cifar100, pets, flower] --type MODEL_SCALE4CRATE --ckpt_dir CKPT_DIR --data_dir DATA_DIR
+    --opt [adamW, adam, sgd] --lr LEARNING_RATE --n_epochs N_EPOCHS --randomaug 1 --data [cifar10, cifar100, pets, flower] 
+    --type MODEL_SCALE4CRATE --ckpt_dir CKPT_DIR --data_dir DATA_DIR
 ```
