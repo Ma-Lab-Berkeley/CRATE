@@ -37,7 +37,7 @@ parser.add_argument('--rand_aug_m',type=int, default=14)
 parser.add_argument('--erase_prob',type=float, default=0.0)
 parser.add_argument('--n_epochs', type=int, default='400')
 parser.add_argument('--patch', default='4', type=int, help="patch for ViT")
-parser.add_argument('--ckpt_dir', type=str, default='./',help='location for the pretrained CRATE weight')
+parser.add_argument('--ckpt_dir', type=str, default=None,help='location for the pretrained CRATE weight')
 parser.add_argument('--data_dir', type=str, default='./data',help='location for datasets')
 
 args = parser.parse_args()
@@ -74,39 +74,46 @@ trainloader = torch.utils.data.DataLoader(transet, batch_size=bs, shuffle=True, 
 testloader = torch.utils.data.DataLoader(testset, batch_size=100, shuffle=False, num_workers=8)
 # Model factory..
 print('==> Building model..')
-
+if args.ckpt_dir is None:
+    print("Train from scratch.")
 if args.net == 'vit_tiny':
     net = vit_tiny_patch16(global_pool=True)
-    net.load_state_dict(torch.load(args.ckpt_dir)['model'])
+    if args.ckpt_dir is not None:
+        net.load_state_dict(torch.load(args.ckpt_dir)['model'])
     net.head = nn.Linear(192, args.classes)
 elif args.net == 'vit_small':
     net = vit_small_patch16(global_pool=True)
-    net.load_state_dict(torch.load(args.ckpt_dir)['model'])
+    if args.ckpt_dir is not None:
+        net.load_state_dict(torch.load(args.ckpt_dir)['model'])
     net.head = nn.Linear(384, args.classes)
 elif args.net == 'CRATE_tiny':
     net = CRATE_tiny()
-    net.load_state_dict(torch.load(args.ckpt_dir)['model'])
+    if args.ckpt_dir is not None:
+        net.load_state_dict(torch.load(args.ckpt_dir)['model'])
     net.mlp_head = nn.Sequential(
         nn.LayerNorm(384),
         nn.Linear(384, args.classes)
     )
 elif args.net == "CRATE_small":
     net = CRATE_small()
-    net.load_state_dict(torch.load(args.ckpt_dir)['model'])
+    if args.ckpt_dir is not None:
+        net.load_state_dict(torch.load(args.ckpt_dir)['model'])
     net.mlp_head = nn.Sequential(
         nn.LayerNorm(576),
         nn.Linear(576, args.classes)
     )
 elif args.net == "CRATE_base":
     net = CRATE_base()
-    net.load_state_dict(torch.load(args.ckpt_dir)['model'])
+    if args.ckpt_dir is not None:
+        net.load_state_dict(torch.load(args.ckpt_dir)['model'])
     net.mlp_head = nn.Sequential(
         nn.LayerNorm(768),
         nn.Linear(768, args.classes)
     )
 elif args.net == "CRATE_large":
     net = CRATE_large()
-    net.load_state_dict(torch.load(args.ckpt_dir)['model'])
+    if args.ckpt_dir is not None:
+        net.load_state_dict(torch.load(args.ckpt_dir)['model'])
     net.mlp_head = nn.Sequential(
         nn.LayerNorm(1024),
         nn.Linear(1024, args.classes)

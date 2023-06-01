@@ -75,7 +75,7 @@ class Attention(nn.Module):
 
 import torch.nn.functional as F
 class Transformer(nn.Module):
-    def __init__(self, dim, depth, heads, dim_head, mlp_dim, dropout = 0., ista=0.1):
+    def __init__(self, dim, depth, heads, dim_head, dropout = 0., ista=0.1):
         super().__init__()
         self.layers = nn.ModuleList([])
         self.heads = heads
@@ -84,7 +84,7 @@ class Transformer(nn.Module):
         for _ in range(depth):
             self.layers.append(nn.ModuleList([
                 PreNorm(dim, Attention(dim, heads = heads, dim_head = dim_head, dropout = dropout)),
-                PreNorm(dim, FeedForward(dim, mlp_dim, dropout = dropout, step_size=ista))
+                PreNorm(dim, FeedForward(dim, dim, dropout = dropout, step_size=ista))
             ]))
 
     def forward(self, x):
@@ -96,7 +96,7 @@ class Transformer(nn.Module):
         return x
 
 class CRATE(nn.Module):
-    def __init__(self, *, image_size, patch_size, num_classes, dim, depth, heads, mlp_dim, pool = 'cls', channels = 3, dim_head = 64, dropout = 0., emb_dropout = 0., ista=0.1):
+    def __init__(self, *, image_size, patch_size, num_classes, dim, depth, heads, pool = 'cls', channels = 3, dim_head = 64, dropout = 0., emb_dropout = 0., ista=0.1):
         super().__init__()
         image_height, image_width = pair(image_size)
         patch_height, patch_width = pair(patch_size)
@@ -118,7 +118,7 @@ class CRATE(nn.Module):
         self.cls_token = nn.Parameter(torch.randn(1, 1, dim))
         self.dropout = nn.Dropout(emb_dropout)
 
-        self.transformer = Transformer(dim, depth, heads, dim_head, mlp_dim, dropout, ista=ista)
+        self.transformer = Transformer(dim, depth, heads, dim_head, dropout, ista=ista)
 
         self.pool = pool
         self.to_latent = nn.Identity()
@@ -153,7 +153,6 @@ def CRATE_tiny():
                     dim=384,
                     depth=12,
                     heads=6,
-                    mlp_dim=384,
                     dropout=0.0,
                     emb_dropout=0.0,
                     dim_head=384//6)
@@ -165,7 +164,6 @@ def CRATE_small():
                     dim=576,
                     depth=12,
                     heads=12,
-                    mlp_dim=576,
                     dropout=0.0,
                     emb_dropout=0.0,
                     dim_head=576//12)
@@ -177,7 +175,6 @@ def CRATE_base():
                 dim=768,
                 depth=12,
                 heads=12,
-                mlp_dim=768,
                 dropout=0.0,
                 emb_dropout=0.0,
                 dim_head=768//12)
@@ -189,7 +186,6 @@ def CRATE_large():
                 dim=1024,
                 depth=24,
                 heads=16,
-                mlp_dim=1024,
                 dropout=0.0,
                 emb_dropout=0.0,
                 dim_head=1024//16)
