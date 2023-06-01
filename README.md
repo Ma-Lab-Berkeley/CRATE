@@ -1,5 +1,10 @@
-# CRATE :takeout_box:
-Code for CRATE :takeout_box:.
+# CRATE 
+Code for CRATE.
+
+<p align="center">
+    <img src="figs/fig1.png" width="450"\>
+</p>
+<p align="center">
 
 ## Construct a CRATE model
 A CRATE model can be defined using the following code. The given parameters are specified for CRATE-tiny.
