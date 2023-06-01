@@ -7,7 +7,7 @@ by [Yaodong Yu](https://yaodongyu.github.io) (UC Berkeley), [Sam Buchanan](https
 ## What is CRATE?
 CRATE (Coding RAte reduction TransformEr) is a white-box (mathematically interpretable) transformer architecture, where each layer performs a single step of an alternating minimization algorithm to optimize the **sparse rate reduction objective**
  <p align="center">
-    <img src="figs/fig_objective.png" width="800"\>
+    <img src="figs/fig_objective.png" width="700"\>
 </p>
 <p align="center">
 
