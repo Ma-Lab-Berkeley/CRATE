@@ -38,43 +38,70 @@ In Figure 3, we measure the compression term [ $R^{c}$ ($\mathbf{Z}^{\ell+1/2}$)
 
 
 ## Construct a CRATE model
-A CRATE model can be defined using the following code. The given parameters are specified for CRATE-tiny.
+A CRATE model can be defined using the following code, (the below parameters are specified for CRATE-Tiny)
 ```python
 from model.crate import CRATE
-net = CRATE(
-    image_size=224,
-    patch_size=16,
-    num_classes=1000,
-    dim=384,
-    depth=12,
-    heads=6,
-    mlp_dim=384,
-    dropout=0.0,
-    emb_dropout=0.0,
-    dim_head=384//6
-    )
+dim = 384
+n_heads = 6
+depth = 12
+model = CRATE(image_size=224,
+              patch_size=16,
+              num_classes=1000,
+              dim=dim,
+              depth=depth,
+              heads=n_heads,
+              dim_head=dim // n_heads)
 ```
+| model | `dim` | `n_heads` | `depth` |
+| -------- | -------- | -------- | -------- | 
+| **CRATE-T**(iny)    | 384   | 6   | 12 |
+| **CRATE-S**(mall)    | 576   | 12   | 12 | 
+| **CRATE-B**(ase)    | 768   | 12   | 12 | 
+| **CRATE-L**(arge) | 1024 | 16 | 24 |
+
 ## Training CRATE on ImageNet
+To train a CRATE model on ImageNet-1K, run the following script (training CRATE-tiny)
+
+As an example, we use the following command for training CRATE-tiny on ImageNet-1K:
 ```python
-python main.py --arch [CRATE_tiny, CRATE_small, CRATE_base, CRATE_large, vit_tiny, vit_small] --batch-size BATCH_SIZE --epochs EPOCHS --optimizer Lion --lr LEARNING_RATE --weight-decay WEIGHT_DECAY --print-freq 25 --data DATA_DIR
+python main.py 
+  --arch CRATE_tiny 
+  --batch-size 512 
+  --epochs 200 
+  --optimizer Lion 
+  --lr 0.0002 
+  --weight-decay 0.05 
+  --print-freq 25 
+  --data DATA_DIR
 ```
+and replace `DATA_DIR` with `[imagenet-folder with train and val folders]`.
 
-As an example, we use the following command for training CRATE_tiny:
+
+## Finetuning pretrained CRATE / Training CRATE on CIFAR10
+
 ```python
-python main.py python main.py --arch CRATE_tiny --batch-size 512 --epochs 200 --optimizer Lion --lr 0.0002 --weight-decay 0.04  --print-freq 25 --data DATA_DIR
+python finetune.py 
+  --bs 256 
+  --net CRATE_tiny 
+  --opt adamW  
+  --lr 5e-5 
+  --n_epochs 200 
+  --randomaug 1 
+  --data cifar10 
+  --ckpt_dir CKPT_DIR 
+  --data_dir DATA_DIR
 ```
+Replace `CKPT_DIR` with the path for the pretrained CRATE weight, and replace `DATA_DIR` with the path for the `CIFAR10` dataset. If `CKPT_DIR` is `None`, then this script is for training CRATE from random initialization on CIFAR10.
 
-## Finetuning pretrained CRATE
 
-| data | optimizer | lr | n_epochs | bs |
-| -------- | -------- | -------- | -------- | -------- |
-| cifar10    | adamW   | 5e-5   | 200 | 256 |
-| cifar100    | adamW   | 5e-5   | 200 | 256 |
-| pets    | adamW   | 1e-4   | 400 | 256 |
-| flower | adamW | 1e-4 | 400 | 256 |
+## Reference
+For technical details and full experimental results, please check the [paper](https://arxiv.org/abs/2306.xxxx). Please consider citing our work if you find it helpful to yours:
 
-```python
-python finetune.py --bs BATCH_SIZE --net [CRATE_tiny, CRATE_small, CRATE_base, CRATE_large, vit_tiny, vit_small] 
-    --opt [adamW, adam, sgd] --lr LEARNING_RATE --n_epochs N_EPOCHS --randomaug 1 --data [cifar10, cifar100, pets, flower] 
-    --type MODEL_SCALE4CRATE --ckpt_dir CKPT_DIR --data_dir DATA_DIR
+```
+@article{yu2023crate,
+  title={White-Box Transformers via Sparse Rate Reduction},
+  author={Yu, Yaodong and Buchanan, Sam and Pai, Druv and Chu, Tianzhe Chu and Wu, Ziyang and Tong, Shengbang and Haeffele, Benjamin D. and Ma, Yi},
+  journal={arXiv preprint arXiv:2306.xxxxx},
+  year={2023}
+}
 ```
