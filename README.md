@@ -77,7 +77,7 @@ python main.py
 and replace `DATA_DIR` with `[imagenet-folder with train and val folders]`.
 
 
-## Finetuning pretrained CRATE / Training CRATE on CIFAR10
+## Finetuning pretrained / training random initialized CRATE on CIFAR10
 
 ```python
 python finetune.py 
