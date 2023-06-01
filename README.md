@@ -100,7 +100,7 @@ For technical details and full experimental results, please check the [paper](ht
 ```
 @article{yu2023crate,
   title={White-Box Transformers via Sparse Rate Reduction},
-  author={Yu, Yaodong and Buchanan, Sam and Pai, Druv and Chu, Tianzhe Chu and Wu, Ziyang and Tong, Shengbang and Haeffele, Benjamin D. and Ma, Yi},
+  author={Yu, Yaodong and Buchanan, Sam and Pai, Druv and Chu, Tianzhe and Wu, Ziyang and Tong, Shengbang and Haeffele, Benjamin D. and Ma, Yi},
   journal={arXiv preprint arXiv:2306.xxxxx},
   year={2023}
 }
