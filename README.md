@@ -1,21 +1,32 @@
-# CRATE 
-Code for CRATE.
+# CRATE (Coding RAte reduction TransformEr)
+This repository is the official PyTorch implementation of the paper [White-Box Transformers via Sparse Rate Reduction](https://arxiv.org/abs/2306.xxxxx) (2023) 
+
+by [Yaodong Yu](https://yaodongyu.github.io) (UC Berkeley), [Sam Buchanan](https://sdbuchanan.com) (TTIC), [Druv Pai](https://druvpai.github.io) (UC Berkeley), [Tianzhe Chu](https://tianzhechu.com/) (UC Berkeley), [Ziyang Wu](https://robinwu218.github.io/) (UC Berkeley), [Shengbang Tong](https://tsb0601.github.io/petertongsb/) (UC Berkeley), [Benjamin D Haeffele](https://www.cis.jhu.edu/~haeffele/#about) (Johns Hopkins University), and [Yi Ma](http://people.eecs.berkeley.edu/~yima/) (UC Berkeley). 
+
+
+## What is CRATE?
+CRATE (Coding RAte reduction TransformEr) is a white-box (mathematically interpretable) transformer architecture, where each layer performs a single step of an alternating minimization algorithm to optimize the **sparse rate reduction objective**
+ 
+
+(See below Figure 1).
+
 
 <p align="center">
-    <img src="figs/fig1.png" width="900"\>
+    <img src="figs/fig1.png" width="800"\>
 </p>
 <p align="center">
+
 
 Below is the architecture:
 
 <p align="center">
-    <img src="figs/fig_arch.png" width="900"\>
+    <img src="figs/fig_arch.png" width="800"\>
 </p>
 <p align="center">
 
 Optimization:
 <p align="center">
-    <img src="figs/fig_arch.png" width="900"\>
+    <img src="figs/fig3.png" width="900"\>
 </p>
 <p align="center">
 
