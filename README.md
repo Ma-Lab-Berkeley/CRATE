@@ -6,10 +6,16 @@ by [Yaodong Yu](https://yaodongyu.github.io) (UC Berkeley), [Sam Buchanan](https
 
 ## What is CRATE?
 CRATE (Coding RAte reduction TransformEr) is a white-box (mathematically interpretable) transformer architecture, where each layer performs a single step of an alternating minimization algorithm to optimize the **sparse rate reduction objective**
- 
+ <p align="center">
+    <img src="figs/fig_objective.png" width="800"\>
+</p>
+<p align="center">
 
-(See below Figure 1).
-
+where the $\ell^{0}$-norm promotes the sparsity of the final token representations $\mathbf{Z} = f(\mathbf{X})$. The function $f$ is defined as 
+$$f=f^{L} \circ f^{L-1} \circ \cdots \circ f^{1} \circ f^{0},$$
+$f^0$ is the pre-processing mapping, and $f^{\ell}$ is the $\ell$-th layer forward mapping that transforms the token distribution to optimize the above sparse rate reduction objective incrementally. More specifically, $f^{\ell}$ transforms the $\ell$-th layer token representations $\mathbf{Z}^{\ell}$ to  $\mathbf{Z}^{\ell+1}$ via the $\texttt{MSSA}$ (Multi-Head Subspace Self-Attention) block and the $\texttt{ISTA}$ (Iterative Shrinkage-Thresholding Algorithms) block, i.e.,
+$$\mathbf{Z}^{\ell+1} = f^{\ell}(\mathbf{Z}^{\ell}) = \texttt{ISTA}(\texttt{MSSA}(\mathbf{Z}^{\ell})).$$
+Figure 1 presents an overview of the pipeline for our proposed **CRATE** architecture:
 
 <p align="center">
     <img src="figs/fig1.png" width="800"\>
@@ -17,14 +23,14 @@ CRATE (Coding RAte reduction TransformEr) is a white-box (mathematically interpr
 <p align="center">
 
 
-Below is the architecture:
+Figure 2 shows the overall architecture of one block of **CRATE**:
 
 <p align="center">
     <img src="figs/fig_arch.png" width="800"\>
 </p>
 <p align="center">
 
-Optimization:
+In Figure 3, we measure the compression term [ $R^{c}$ ($\mathbf{Z}^{\ell+1/2}$) ] and the sparsity term [ $||\mathbf{Z}^{\ell+1}||_0$ ] defined in the **sparse rate reduction objective**, and we find that each layer of **CRATE** indeed optimizes the targeted objectives:
 <p align="center">
     <img src="figs/fig3.png" width="900"\>
 </p>
