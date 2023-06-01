@@ -2,9 +2,23 @@
 Code for CRATE.
 
 <p align="center">
-    <img src="figs/fig1.png" width="450"\>
+    <img src="figs/fig1.png" width="900"\>
 </p>
 <p align="center">
+
+Below is the architecture:
+
+<p align="center">
+    <img src="figs/fig_arch.png" width="900"\>
+</p>
+<p align="center">
+
+Optimization:
+<p align="center">
+    <img src="figs/fig_arch.png" width="900"\>
+</p>
+<p align="center">
+
 
 ## Construct a CRATE model
 A CRATE model can be defined using the following code. The given parameters are specified for CRATE-tiny.
