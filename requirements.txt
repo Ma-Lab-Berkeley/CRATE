@@ -1,3 +1,7 @@
 torch
 numpy
 torchvision
+einops
+argparse
+timm
+lion_pytorch

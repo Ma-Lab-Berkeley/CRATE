@@ -13,7 +13,6 @@ import torchvision.transforms as transforms
 
 import os
 import argparse
-import pandas as pd
 import csv
 import time
 
