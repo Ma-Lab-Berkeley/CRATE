@@ -1,5 +1,5 @@
 # CRATE (Coding RAte reduction TransformEr)
-This repository is the official PyTorch implementation of the paper [White-Box Transformers via Sparse Rate Reduction](https://arxiv.org/abs/2306.xxxxx) (2023) 
+This repository is the official PyTorch implementation of the paper [White-Box Transformers via Sparse Rate Reduction](https://arxiv.org/abs/2306.01129) (2023) 
 
 by [Yaodong Yu](https://yaodongyu.github.io) (UC Berkeley), [Sam Buchanan](https://sdbuchanan.com) (TTIC), [Druv Pai](https://druvpai.github.io) (UC Berkeley), [Tianzhe Chu](https://tianzhechu.com/) (UC Berkeley), [Ziyang Wu](https://robinwu218.github.io/) (UC Berkeley), [Shengbang Tong](https://tsb0601.github.io/petertongsb/) (UC Berkeley), [Benjamin D Haeffele](https://www.cis.jhu.edu/~haeffele/#about) (Johns Hopkins University), and [Yi Ma](http://people.eecs.berkeley.edu/~yima/) (UC Berkeley). 
 
@@ -98,10 +98,12 @@ Replace `CKPT_DIR` with the path for the pretrained CRATE weight, and replace `D
 For technical details and full experimental results, please check the [paper](https://arxiv.org/abs/2306.xxxx). Please consider citing our work if you find it helpful to yours:
 
 ```
-@article{yu2023crate,
-  title={White-Box Transformers via Sparse Rate Reduction},
-  author={Yu, Yaodong and Buchanan, Sam and Pai, Druv and Chu, Tianzhe and Wu, Ziyang and Tong, Shengbang and Haeffele, Benjamin D. and Ma, Yi},
-  journal={arXiv preprint arXiv:2306.xxxxx},
-  year={2023}
+@misc{yu2023whitebox,
+      title={White-Box Transformers via Sparse Rate Reduction}, 
+      author={Yaodong Yu and Sam Buchanan and Druv Pai and Tianzhe Chu and Ziyang Wu and Shengbang Tong and Benjamin D. Haeffele and Yi Ma},
+      year={2023},
+      eprint={2306.01129},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
 }
 ```
