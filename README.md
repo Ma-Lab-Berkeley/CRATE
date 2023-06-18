@@ -95,7 +95,7 @@ Replace `CKPT_DIR` with the path for the pretrained CRATE weight, and replace `D
 
 
 ## Reference
-For technical details and full experimental results, please check the [paper](https://arxiv.org/abs/2306.xxxx). Please consider citing our work if you find it helpful to yours:
+For technical details and full experimental results, please check the [paper](https://arxiv.org/abs/2306.01129). Please consider citing our work if you find it helpful to yours:
 
 ```
 @misc{yu2023whitebox,
