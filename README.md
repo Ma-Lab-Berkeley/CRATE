@@ -52,6 +52,8 @@ model = CRATE(image_size=224,
               heads=n_heads,
               dim_head=dim // n_heads)
 ```
+
+### Pre-trained Checkpoints (ImageNet-1K)
 | model | `dim` | `n_heads` | `depth` | pre-trained checkpoint |
 | -------- | -------- | -------- | -------- | -------- | 
 | **CRATE-T**(iny)    | 384   | 6   | 12 | TODO | 
