@@ -54,7 +54,7 @@ model = CRATE(image_size=224,
 ```
 | model | `dim` | `n_heads` | `depth` | pre-trained checkpoint |
 | -------- | -------- | -------- | -------- | -------- | 
-| **CRATE-T**(iny)    | 384   | 6   | 12 | [download link]([https://tianzhechu.com/](https://drive.google.com/file/d/1hYgDJl4EKHYfKprwhEjmWmWHuxnK6_h8/view?usp=share_link)) | 
+| **CRATE-T**(iny)    | 384   | 6   | 12 | [download link](https://drive.google.com/file/d/1hYgDJl4EKHYfKprwhEjmWmWHuxnK6_h8/view?usp=share_link) | 
 | **CRATE-S**(mall)    | 576   | 12   | 12 | TODO | 
 | **CRATE-B**(ase)    | 768   | 12   | 12 | TODO | 
 | **CRATE-L**(arge) | 1024 | 16 | 24 | TODO | 
