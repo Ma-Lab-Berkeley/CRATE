@@ -56,10 +56,10 @@ model = CRATE(image_size=224,
 ### Pre-trained Checkpoints (ImageNet-1K)
 | model | `dim` | `n_heads` | `depth` | pre-trained checkpoint |
 | -------- | -------- | -------- | -------- | -------- | 
-| **CRATE-T**(iny)    | 384   | 6   | 12 | TODO | 
-| **CRATE-S**(mall)    | 576   | 12   | 12 | [download link](https://drive.google.com/file/d/1hYgDJl4EKHYfKprwhEjmWmWHuxnK6_h8/view?usp=share_link) | 
-| **CRATE-B**(ase)    | 768   | 12   | 12 | TODO | 
-| **CRATE-L**(arge) | 1024 | 16 | 24 | TODO | 
+| **CRATE-T**(tiny)    | 384   | 6   | 12 | TODO | 
+| **CRATE-S**(small)    | 576   | 12   | 12 | [download link](https://drive.google.com/file/d/1hYgDJl4EKHYfKprwhEjmWmWHuxnK6_h8/view?usp=share_link) | 
+| **CRATE-B**(base)    | 768   | 12   | 12 | TODO | 
+| **CRATE-L**(large) | 1024 | 16 | 24 | TODO | 
 
 ## Training CRATE on ImageNet
 To train a CRATE model on ImageNet-1K, run the following script (training CRATE-tiny)
