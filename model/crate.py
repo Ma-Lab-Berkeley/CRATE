@@ -70,7 +70,6 @@ class Attention(nn.Module):
         out = rearrange(out, 'b h n d -> b n (h d)')
         return self.to_out(out)
 
-import torch.nn.functional as F
 class Transformer(nn.Module):
     def __init__(self, dim, depth, heads, dim_head, dropout = 0., ista=0.1):
         super().__init__()
