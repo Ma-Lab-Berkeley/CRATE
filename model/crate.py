@@ -9,9 +9,6 @@ import torch.nn.init as init
 def pair(t):
     return t if isinstance(t, tuple) else (t, t)
 
-def pair(t):
-    return t if isinstance(t, tuple) else (t, t)
-
 class PreNorm(nn.Module):
     def __init__(self, dim, fn):
         super().__init__()
