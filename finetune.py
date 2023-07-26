@@ -112,6 +112,7 @@ if 'cuda' in device:
     print("using data parallel")
     net = torch.nn.DataParallel(net) # make parallel
     if args.ckpt_dir is not None:
+        #upd keys
         state_dict = torch.load(args.ckpt_dir)['state_dict']
         for k in list(state_dict.keys()):
             if "head" in k or "mlp_head" in k:
