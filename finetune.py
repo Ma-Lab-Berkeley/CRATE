@@ -77,42 +77,30 @@ if args.ckpt_dir is None:
     print("Train from scratch.")
 if args.net == 'vit_tiny':
     net = vit_tiny_patch16(global_pool=True)
-    if args.ckpt_dir is not None:
-        net.load_state_dict(torch.load(args.ckpt_dir)['model'])
     net.head = nn.Linear(192, args.classes)
 elif args.net == 'vit_small':
     net = vit_small_patch16(global_pool=True)
-    if args.ckpt_dir is not None:
-        net.load_state_dict(torch.load(args.ckpt_dir)['model'])
     net.head = nn.Linear(384, args.classes)
 elif args.net == 'CRATE_tiny':
     net = CRATE_tiny()
-    if args.ckpt_dir is not None:
-        net.load_state_dict(torch.load(args.ckpt_dir)['model'])
     net.mlp_head = nn.Sequential(
         nn.LayerNorm(384),
         nn.Linear(384, args.classes)
     )
 elif args.net == "CRATE_small":
     net = CRATE_small()
-    if args.ckpt_dir is not None:
-        net.load_state_dict(torch.load(args.ckpt_dir)['model'])
     net.mlp_head = nn.Sequential(
         nn.LayerNorm(576),
         nn.Linear(576, args.classes)
     )
 elif args.net == "CRATE_base":
     net = CRATE_base()
-    if args.ckpt_dir is not None:
-        net.load_state_dict(torch.load(args.ckpt_dir)['model'])
     net.mlp_head = nn.Sequential(
         nn.LayerNorm(768),
         nn.Linear(768, args.classes)
     )
 elif args.net == "CRATE_large":
     net = CRATE_large()
-    if args.ckpt_dir is not None:
-        net.load_state_dict(torch.load(args.ckpt_dir)['model'])
     net.mlp_head = nn.Sequential(
         nn.LayerNorm(1024),
         nn.Linear(1024, args.classes)
@@ -123,6 +111,13 @@ if 'cuda' in device:
     print(device)
     print("using data parallel")
     net = torch.nn.DataParallel(net) # make parallel
+    if args.ckpt_dir is not None:
+        state_dict = torch.load(args.ckpt_dir)['state_dict']
+        #delete mlp_head or head
+        for k in list(state_dict.keys()):
+            if "head" in k or "mlp_head" in k:
+                del state_dict[k]
+        net.load_state_dict(state_dict, strict=False)
     cudnn.benchmark = True
 if args.resume:
     # Load checkpoint.
