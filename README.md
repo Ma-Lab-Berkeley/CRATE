@@ -42,13 +42,6 @@ In Figure 3, we measure the compression term [ $R^{c}$ ($\mathbf{Z}^{\ell+1/2}$)
 </p>
 <p align="center">
 
-### 4. Segmentation visualization of CRATE
-In Figure 4, we visualize self-attention maps from a supervised **CRATE** with 8x8 patches (similar to the ones shown in [DINO](https://github.com/facebookresearch/dino) :t-rex:):
-<p align="center">
-    <img src="figs/crate_seg.png" width="900"\>
-</p>
-<p align="center">
-
 
 
 ## Construct a CRATE model
