@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRATE</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- KaTeX stuff -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+    <!-- End KaTeX stuff -->
+</head>
+<style>
+    footer {
+      background-color: #ffffff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    .indented-text {
+      margin-left: 20px;
+    }
+
+    .button-container {
+      /* display: flex; */
+      justify-content: space-between;
+    }
+
+    .toggle-button {
+        flex: 1;
+      margin-right: 5px; /* Adjust this value to reduce spacing */
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #ffffff;
+      text-decoration: none;
+      border: 1px solid #007bff;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .toggle-button:hover {
+      background-color: #0056b3;
+    }
+
+    .exp{visibility: hidden;}
+    .center_img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+    div {
+        font-family: Arial;
+        margin: auto;
+        padding: 8px;
+        max-width: 800px;
+    }   
+    h1 {text-align: center; font-family: Arial;}
+    h2 {text-align: center; font-family: Arial;}
+    p {text-align: left; font-family: Arial;}
+    #abstract {text-align: left;}
+    #center {text-align: center;}
+    #references {overflow-wrap: break-word; text-indent: -36px;
+            padding-left: 36px;}
+</style>
+<body>
+    <p>
+        <div class="container" id="center">
+            <h1>White-Box Transformers via Sparse Rate Reduction</h1>
+            <b><p1>Yaodong Yu<sup>1</sup> Sam Buchanan<sup>2</sup> Druv Pai<sup>1</sup> Tianzhe Chu<sup>1 3</sup> Ziyang Wu<sup>1</sup> <br> Shengbang Tong<sup>1 4</sup> Benjamin D. Haeffele<sup>5</sup> Yi Ma<sup>1 6</sup></p1> </b><br> 
+
+            <br> <sup>1</sup>University of California, Berkeley &nbsp <sup>2</sup>TTIC &nbsp <sup>3</sup>ShanghaiTech University <br> &nbsp <sup>4</sup>New York University &nbsp <sup>5</sup>Johns Hopkins University &nbsp <sup>6</sup>HKU
+        </div>
+    </p>
+    <div>
+        <br>
+        <div style="text-align: center;">
+            <a href = "https://arxiv.org/abs/2306.01129" style="display: inline-block" class="toggle-button">Original CRATE Paper</a>
+            <a href = "https://github.com/Ma-Lab-Berkeley/CRATE" style="display: inline-block" class="toggle-button">GitHub</a>
+        </div>
+        <br>
+        <br>
+        <p><b>TLDR: CRATE is a transformer-like architecture which is constructed through first principles and has competitive performance on standard tasks while also enjoying many side benefits.</b></p>
+        <p>
+            <p1 id="assets">
+                <br>
+                <h2>What is CRATE?</h2>
+
+                <b>CRATE</b> (<b>C</b>oding <b>RA</b>te reduction <b>T</b>ransform<b>E</b>r) is a white-box (mathematically interpretable) transformer architecture, where each layer performs a single step of an alternating minimization algorithm to optimize the sparse rate reduction objective
+                \[\max_{f}\mathbb{E}_{\mathbf{Z} = f(\mathbf{X})}[\Delta R(\mathbf{Z} \mid \mathbf{U}_{[K]}) - \lambda \|\mathbf{Z}\|_{0}],\]
+                where the \(\ell^{0}\) norm promotes the sparsity of the final token representations \(\mathbf{Z} = f(\mathbf{X})\). The function \(f\) is defined as
+                \[f = f^{L} \circ f^{L - 1} \circ \cdots \circ f^{1} \circ f^{0},\]
+                where \(f^{0}\) is the pre-processing mapping, and \(f^{\ell}\) is the \(\ell^{\mathrm{th}}\)-layer forward mapping that transforms the token distribution to optimize the above sparse rate reduction objective incrementally. More specifically, \(f^{\ell}\) transforms the token representations \(\mathbf{Z}^{\ell}\), which are the representations at the input of the \(\ell^{\mathrm{th}}\) layer, to \(\mathbf{Z}^{\ell + 1}\) via the \(\texttt{MSSA}\) (<b>M</b>ulti-Head <b>S</b>ubspace <b>S</b>elf-<b>A</b>ttention) block and the 
+                \(\texttt{ISTA}\) (<b>I</b>terative <b>S</b>hrinkage-<b>T</b>hresholding <b>A</b>lgorithm) block, i.e.,
+                \[\mathbf{Z}^{\ell + 1} = f^{\ell}(\mathbf{Z}^{\ell}) = \texttt{ISTA}(\mathbf{Z}^{\ell} + \texttt{MSSA}(\mathbf{Z}^{\ell})).\]
+ 
+                <br>
+                <br>
+                <h2>Architecture</h2>
+
+                The following figure presents an overview of the general CRATE architecture:
+                <br>
+                <br>
+                <img src="images/CRATE_pipeline.png" class="center_img" style="width:800px;height:200px;"> <br> <!--insert figure here-->
+                After encoding input data \(\mathbf{X}\) as a sequence of tokens \(\mathbf{Z}^0\), CRATE constructs a deep network that transforms the data to a canonical configuration of low-dimensional subspaces by successive <it style="color:#00BFFF">compression</it> against a local model for the distribution, generating \(\mathbf{Z}^{\ell+1/2}\), and <it style="color:#008000">sparsification</it> against a global dictionary, generating \(\mathbf{Z}^{\ell+1}\). Repeatedly stacking these blocks and training the model parameters via backpropagation yields a powerful and interpretable representation of the data.
+                <br>
+                <br>
+                The following figure presents a graphic of a single layer for the CRATE architecture:
+                <br>
+                <br>
+                <img src="images/CRATE_layer.svg" class="center_img" style="width:800px;height:550px;"> <br> <!--insert figure here-->
+                The full architecture is simply a concatenation of such layers, with some initial tokenizer and final task-specific architecture (i.e., a classification head).
+                
+                <br>
+                <br>
+                <h2>Classification</h2>
+                Below, the classification pipeline for CRATE is depicted. It is virtually identical to the popular vision transformer.
+                <img src="images/CRATE_classification.svg" class="center_img" style="width:800px;height:400px;"> <br> <!--insert figure here-->
+                We use soft-max cross entropy loss to train on the supervised image classification task. We obtain competitive performance with the usual vision transformer (ViT) trained on classification, with similar scaling behavior, including  <b>above 80% top-1 accuracy on ImageNet-1K with 25% of the parameters of ViT</b>.
+
+                <br>
+                <br>
+                <h2>Segmentation and Detection</h2>
+                An interesting phenomenon of CRATE is that <i>even when trained on supervised classification</i>, it <i>learns to segment</i> the input images, with such segmentations being easily recoverable via attention maps, as in the following pipeline (similar to DINO). 
+                <img src="images/CRATE_segmentation.svg" class="center_img" style="width:800px;height:400px;"> <br> <!--insert figure here-->
+                Such segmentations were only previously seen in transformer-like architectures using a complex self-supervised training mechanism as in DINO, yet <b>in CRATE segmentation emerges as a byproduct of supervised classification training</b>, where the model does not obtain any <i>a priori</i> segmentation information at any time. Below, we show some example segmentations.
+                <br>
+                <br>
+                <img src="images/CRATE_segmentation_examples.svg" class="center_img" style="width:800px;height:200px;"> <br> <!--insert figure here-->
+                Another remarkable property is that <b>attention heads in CRATE automatically carry semantic meaning</b>, which implies that CRATE may have post-hoc interpretability for any classification it makes. Below, we visualize the output of some attention heads across several images and several animals, showing that some attention heads correspond to different parts of the animal.
+                <img src="images/CRATE_semantic_heads.svg" class="center_img" style="width:800px;height:700px;"> <br> <!--insert figure here-->
+            </p1>
+        </p>
+        <div class="button-container">
+            <br>
+            <h2>Citation Information</h2>
+                <p><ul>White-Box Transformers via Sparse Rate Reduction</ul></p>
+                <pre>
+                    @misc{yu2023whitebox,
+                            title={White-Box Transformers via Sparse Rate Reduction},
+                            author={Yaodong Yu and Sam Buchanan and Druv Pai and Tianzhe Chu and Ziyang Wu and Shengbang Tong and Benjamin D. Haeffele and Yi Ma},
+                            year={2023},
+                            eprint={2306.01129},
+                            archivePrefix={arXiv},
+                            primaryClass={cs.LG}
+                    }
+                </pre>
+
+                <p><ul>Emergence of Segmentation with Minimalistic White-Box Transformers</ul></p>
+                <pre>
+                    Coming soon!
+                </pre>
+            <br><br>
+        <footer>
+            <p>&copy; 2023 Darlnim Park. All rights reserved.</p>
+        </footer>
+        </div>
+    </div>
+</body>
+</html>
