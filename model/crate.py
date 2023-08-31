@@ -9,9 +9,6 @@ import torch.nn.init as init
 def pair(t):
     return t if isinstance(t, tuple) else (t, t)
 
-def pair(t):
-    return t if isinstance(t, tuple) else (t, t)
-
 class PreNorm(nn.Module):
     def __init__(self, dim, fn):
         super().__init__()
@@ -146,10 +143,10 @@ class CRATE(nn.Module):
         return self.mlp_head(x)
 
 
-def CRATE_tiny():
+def CRATE_tiny(num_classes = 1000):
     return CRATE(image_size=224,
                     patch_size=16,
-                    num_classes=1000,
+                    num_classes=num_classes,
                     dim=384,
                     depth=12,
                     heads=6,
@@ -157,10 +154,10 @@ def CRATE_tiny():
                     emb_dropout=0.0,
                     dim_head=384//6)
 
-def CRATE_small():
+def CRATE_small(num_classes = 1000):
     return CRATE(image_size=224,
                     patch_size=16,
-                    num_classes=1000,
+                    num_classes=num_classes,
                     dim=576,
                     depth=12,
                     heads=12,
@@ -168,10 +165,10 @@ def CRATE_small():
                     emb_dropout=0.0,
                     dim_head=576//12)
 
-def CRATE_base():
+def CRATE_base(num_classes = 1000):
     return CRATE(image_size=224,
                 patch_size=16,
-                num_classes=1000,
+                num_classes=num_classes,
                 dim=768,
                 depth=12,
                 heads=12,
@@ -179,10 +176,10 @@ def CRATE_base():
                 emb_dropout=0.0,
                 dim_head=768//12)
 
-def CRATE_large():
+def CRATE_large(num_classes = 1000):
     return CRATE(image_size=224,
                 patch_size=16,
-                num_classes=1000,
+                num_classes=num_classes,
                 dim=1024,
                 depth=24,
                 heads=16,

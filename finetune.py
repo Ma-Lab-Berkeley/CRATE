@@ -82,29 +82,13 @@ elif args.net == 'vit_small':
     net = vit_small_patch16(global_pool=True)
     net.head = nn.Linear(384, args.classes)
 elif args.net == 'CRATE_tiny':
-    net = CRATE_tiny()
-    net.mlp_head = nn.Sequential(
-        nn.LayerNorm(384),
-        nn.Linear(384, args.classes)
-    )
+    net = CRATE_tiny(args.classes)
 elif args.net == "CRATE_small":
-    net = CRATE_small()
-    net.mlp_head = nn.Sequential(
-        nn.LayerNorm(576),
-        nn.Linear(576, args.classes)
-    )
+    net = CRATE_small(args.classes)
 elif args.net == "CRATE_base":
-    net = CRATE_base()
-    net.mlp_head = nn.Sequential(
-        nn.LayerNorm(768),
-        nn.Linear(768, args.classes)
-    )
+    net = CRATE_base(args.classes)
 elif args.net == "CRATE_large":
-    net = CRATE_large()
-    net.mlp_head = nn.Sequential(
-        nn.LayerNorm(1024),
-        nn.Linear(1024, args.classes)
-    )
+    net = CRATE_large(args.classes)
 
 # For Multi-GPU
 if 'cuda' in device:
@@ -114,9 +98,10 @@ if 'cuda' in device:
     if args.ckpt_dir is not None:
         #upd keys
         state_dict = torch.load(args.ckpt_dir)['state_dict']
-        for k in list(state_dict.keys()):
-            if "head" in k or "mlp_head" in k:
-                del state_dict[k]
+        for key in list(state_dict.keys()):
+            if 'mlp_head' in key:
+                del state_dict[key]
+                print("deleted:", key)
         net.load_state_dict(state_dict, strict=False)
     cudnn.benchmark = True
 if args.resume:
