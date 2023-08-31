@@ -42,6 +42,12 @@ In Figure 3, we measure the compression term [ $R^{c}$ ($\mathbf{Z}^{\ell+1/2}$)
 </p>
 <p align="center">
 
+### 4. Segmentation visualization of CRATE
+In Figure 4, we visualize self-attention maps from a supervised **CRATE** with 8x8 patches (similar to the ones shown in [DINO](https://github.com/facebookresearch/dino) :t-rex:):
+<p align="center">
+    <img src="figs/crate_seg.png" width="900"\>
+</p>
+<p align="center">
 
 
 ## Construct a CRATE model
@@ -102,9 +108,20 @@ python finetune.py
 ```
 Replace `CKPT_DIR` with the path for the pretrained CRATE weight, and replace `DATA_DIR` with the path for the `CIFAR10` dataset. If `CKPT_DIR` is `None`, then this script is for training CRATE from random initialization on CIFAR10.
 
+## Demo for the segmentations
+
+We provide a Colab Jupyter notebook to visualize the emerged segmentations from a supervised **CRATE**. The demo provides visualizations for Figure 4 and Figure 5.
+
+Link: [crate-emergence.ipynb](https://colab.research.google.com/drive/1rYn_NlepyW7Fu5LDliyBDmFZylHco7ss?usp=sharing)
+
+<p align="center">
+    <img src="figs/fig5.png" width="900"\>
+</p>
+<p align="center">
+
 
 ## Reference
-For technical details and full experimental results, please check the [paper](https://arxiv.org/abs/2306.01129). Please consider citing our work if you find it helpful to yours:
+For technical details and full experimental results, please check the [paper](https://arxiv.org/abs/2306.01129) and [paper](https://arxiv.org/abs/2309.xxxx). Please consider citing our work if you find it helpful to yours:
 
 ```
 @misc{yu2023whitebox,
@@ -114,5 +131,15 @@ For technical details and full experimental results, please check the [paper](ht
       eprint={2306.01129},
       archivePrefix={arXiv},
       primaryClass={cs.LG}
+}
+```
+```
+@misc{yu2023emergence,
+      title={Emergence of Segmentation with Minimalistic White-Box Transformers}, 
+      author={Yaodong Yu and Tianzhe Chu and Shengbang Tong and Ziyang Wu and Druv Pai and Sam Buchanan and Yi Ma},
+      year={2023},
+      eprint={2309.xxxx},
+      archivePrefix={arXiv},
+      primaryClass={cs.xx}
 }
 ```
