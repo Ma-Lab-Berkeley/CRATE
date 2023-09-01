@@ -138,7 +138,7 @@ For technical details and full experimental results, please check the [crate pap
       title={Emergence of Segmentation with Minimalistic White-Box Transformers}, 
       author={Yaodong Yu and Tianzhe Chu and Shengbang Tong and Ziyang Wu and Druv Pai and Sam Buchanan and Yi Ma},
       year={2023},
-      eprint={2309.16271},
+      eprint={2308.16271},
       archivePrefix={arXiv},
       primaryClass={cs.CV}
 }
