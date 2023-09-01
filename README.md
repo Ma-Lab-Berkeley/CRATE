@@ -45,7 +45,7 @@ In Figure 3, we measure the compression term [ $R^{c}$ ($\mathbf{Z}^{\ell+1/2}$)
 ### 4. Segmentation visualization of CRATE
 In Figure 4, we visualize self-attention maps from a supervised **CRATE** with 8x8 patches (similar to the ones shown in [DINO](https://github.com/facebookresearch/dino) :t-rex:):
 <p align="center">
-    <img src="figs/crate_seg.png" width="900"\>
+    <img src="figs/fig_seg.png" width="900"\>
 </p>
 <p align="center">
 
@@ -112,7 +112,7 @@ Replace `CKPT_DIR` with the path for the pretrained CRATE weight, and replace `D
 
 We provide a Colab Jupyter notebook to visualize the emerged segmentations from a supervised **CRATE**. The demo provides visualizations for Figure 4 and Figure 5.
 
-Link: [crate-emergence.ipynb](https://colab.research.google.com/drive/1rYn_NlepyW7Fu5LDliyBDmFZylHco7ss?usp=sharing)
+Link: [crate-emergence.ipynb](https://colab.research.google.com/drive/1rYn_NlepyW7Fu5LDliyBDmFZylHco7ss?usp=sharing) (in colab)
 
 <p align="center">
     <img src="figs/fig5.png" width="900"\>
