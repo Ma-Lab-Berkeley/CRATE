@@ -121,7 +121,7 @@ Link: [crate-emergence.ipynb](https://colab.research.google.com/drive/1rYn_Nlepy
 
 
 ## Reference
-For technical details and full experimental results, please check the [crate paper](https://arxiv.org/abs/2306.01129) and [crate segmentation paper](https://arxiv.org/abs/2309.xxxx). Please consider citing our work if you find it helpful to yours:
+For technical details and full experimental results, please check the [crate paper](https://arxiv.org/abs/2306.01129) and [crate segmentation paper](https://arxiv.org/abs/2308.16271). Please consider citing our work if you find it helpful to yours:
 
 ```
 @misc{yu2023whitebox,
