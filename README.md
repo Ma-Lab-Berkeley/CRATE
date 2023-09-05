@@ -124,22 +124,18 @@ Link: [crate-emergence.ipynb](https://colab.research.google.com/drive/1rYn_Nlepy
 For technical details and full experimental results, please check the [crate paper](https://arxiv.org/abs/2306.01129) and [crate segmentation paper](https://arxiv.org/abs/2308.16271). Please consider citing our work if you find it helpful to yours:
 
 ```
-@misc{yu2023whitebox,
-      title={White-Box Transformers via Sparse Rate Reduction}, 
-      author={Yaodong Yu and Sam Buchanan and Druv Pai and Tianzhe Chu and Ziyang Wu and Shengbang Tong and Benjamin D. Haeffele and Yi Ma},
-      year={2023},
-      eprint={2306.01129},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+@article{yu2023white,
+  title={White-Box Transformers via Sparse Rate Reduction},
+  author={Yu, Yaodong and Buchanan, Sam and Pai, Druv and Chu, Tianzhe and Wu, Ziyang and Tong, Shengbang and Haeffele, Benjamin D and Ma, Yi},
+  journal={arXiv preprint arXiv:2306.01129},
+  year={2023}
 }
 ```
 ```
-@misc{yu2023emergence,
-      title={Emergence of Segmentation with Minimalistic White-Box Transformers}, 
-      author={Yaodong Yu and Tianzhe Chu and Shengbang Tong and Ziyang Wu and Druv Pai and Sam Buchanan and Yi Ma},
-      year={2023},
-      eprint={2308.16271},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+@article{yu2023emergence,
+  title={Emergence of Segmentation with Minimalistic White-Box Transformers},
+  author={Yu, Yaodong and Chu, Tianzhe and Tong, Shengbang and Wu, Ziyang and Pai, Druv and Buchanan, Sam and Ma, Yi},
+  journal={arXiv preprint arXiv:2308.16271},
+  year={2023}
 }
 ```
