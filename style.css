@@ -1,0 +1,144 @@
+body {
+    min-height: 100%;
+    background-color: #fff;
+    font-family: "Open Sans", sans-serif;
+    color: #333;
+    margin: 0 auto;
+    padding: 2em 2em;
+    box-sizing: border-box;
+    line-height: 1.5em;
+  }
+  
+  h1 {
+    font-size: 2em;
+    text-align: center;
+    line-height: 1.5em;
+    margin-bottom: 0.5em;
+  }
+  h2 {
+    font-size: 1.3em;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  a,
+  a:link,
+  a:visited {
+    color: inherit;
+  }
+  
+  section {
+    padding-bottom: 1em;
+    max-width: 50em;
+    margin: 0 auto;
+  }
+  
+  p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  button {
+    /* background-color: #4c50af; [> Green <] */
+    background-color: #fff; /* Green */
+    border-radius: 0.5em;
+    border: 1px solid #333;
+    padding: 0.5em 2em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #crate-pipeline,
+  #crate-pipeline-narrow {
+    display: block;
+    margin: 0 auto;
+    width: 70em;
+    max-width: 100%;
+  }
+  #crate-pipeline-narrow {
+    display: none;
+  }
+  #crate-pipeline-very-narrow {
+    display: none;
+  }
+  
+  @media screen and (max-width: 800px) {
+    #crate-pipeline {
+      display: none;
+    }
+    #crate-pipeline-narrow {
+      display: block;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    #crate-pipeline-narrow {
+      display: none;
+    }
+    #crate-pipeline-very-narrow {
+      display: block;
+    }
+  }
+  
+  .square-container {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 0.5em 1em;
+    position: relative;
+    vertical-align: middle;
+  }
+  
+  @media screen and (max-width: 800px) {
+    .square-container > div:nth-child(1) {
+      font-size: 0.75em;
+    }
+  }
+  
+  @media screen and (max-width: 640px) {
+    .square-container {
+      flex-wrap: wrap;
+    }
+    .square-container > div:nth-child(1) {
+      font-size: 0.65em;
+    }
+    .square-container > div:nth-child(2) {
+      width: 18em;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .square-container > div:nth-child(1) {
+      font-size: 0.375em;
+    }
+  }
+  
+  /* Children are (matrices/LaTeX, text). */
+  .square-container > div:nth-child(1) {
+    vertical-align: middle;
+    text-align: center;
+    text-wrap: nowrap;
+  }
+  
+  .square-container > div:nth-child(1) > * {
+    vertical-align: middle;
+  }
+  
+  .square-container > div:nth-child(2) {
+    text-align: left;
+  }
+  
+  /* Math */
+  @media screen and (max-width: 640px) {
+    .katex-display {
+      font-size: 0.875em;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .katex-display {
+      font-size: 0.75em;
+    }
+  }
