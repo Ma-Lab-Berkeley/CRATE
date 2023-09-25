@@ -51,34 +51,60 @@ body {
     cursor: pointer;
   }
   
-  #crate-pipeline,
-  #crate-pipeline-narrow {
+  .reg-figure,
+  .reg-figure-narrow {
     display: block;
     margin: 0 auto;
     width: 70em;
     max-width: 100%;
   }
-  #crate-pipeline-narrow {
+  .reg-figure-narrow {
     display: none;
   }
-  #crate-pipeline-very-narrow {
+  .reg-figure-very-narrow {
+    display: none;
+  }
+  
+  .big-figure,
+  .big-figure-narrow {
+    display: block;
+    margin: 0 auto;
+    width: 70em;
+    max-width: 100%;
+  }
+  .big-figure-narrow {
+    display: none;
+  }
+  .big-figure-very-narrow {
     display: none;
   }
   
   @media screen and (max-width: 800px) {
-    #crate-pipeline {
+    .reg-figure {
       display: none;
     }
-    #crate-pipeline-narrow {
+    .big-figure {
+      display: none;
+    }
+    .reg-figure-narrow {
+      display: block;
+    }
+    .big-figure-narrow {
       display: block;
     }
   }
   
   @media screen and (max-width: 480px) {
-    #crate-pipeline-narrow {
+    .reg-figure-narrow {
       display: none;
     }
-    #crate-pipeline-very-narrow {
+    .reg-figure-very-narrow {
+      display: block;
+    }
+    .big-figure-narrow {
+      display: none;
+    }
+    .big-figure-very-narrow {
       display: block;
     }
   }

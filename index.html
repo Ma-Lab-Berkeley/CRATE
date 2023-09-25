@@ -292,12 +292,9 @@
     <div style="height: 1em"></div>
 
     <!-- Big figure -->
-    <img src="./assets/CRATE_pipeline.png" id="crate-pipeline" />
-    <img src="./assets/CRATE_pipeline.png" id="crate-pipeline-narrow" />
-    <img
-      src="./assets/CRATE_pipeline.png"
-      id="crate-pipeline-very-narrow"
-    />
+    <img src="./assets/CRATE_pipeline.png" class="big-figure" />
+    <img src="./assets/CRATE_pipeline.png" class="big-figure-narrow" />
+    <img src="./assets/CRATE_pipeline.png" class="big-figure-very-narrow"/>
     <div style="height: 1em"></div>
 
     <section>
@@ -319,35 +316,15 @@
       <p>
         The following figure presents an overview of the general CRATE architecture:
       </p>
-      <div style="
-            text-align: center;
-          ">
-        <div
-          style="
-            display: block;
-            padding: 1em;
-            border-radius: 0.5em;
-            max-width: 100%;
-          "
-        >
-          <img src="./assets/CRATE_pipeline.png" />
-        </div>
-      </div>
+      <img src="./assets/CRATE_pipeline.png" class="reg-figure"/>
+      <img src="./assets/CRATE_pipeline.png" class="reg-figure-narrow"/>
+      <img src="./assets/CRATE_pipeline.png" class="reg-figure-very-narrow"/>
       <p>
         After encoding input data \(\mathbf{X}\) as a sequence of tokens \(\mathbf{Z}^0\), CRATE constructs a deep network that transforms the data to a canonical configuration of low-dimensional subspaces by successive <it style="color:#00BFFF">compression</it> against a local model for the distribution, generating \(\mathbf{Z}^{\ell+1/2}\), and <it style="color:#008000">sparsification</it> against a global dictionary, generating \(\mathbf{Z}^{\ell+1}\). Repeatedly stacking these blocks and training the model parameters via backpropagation yields a powerful and interpretable representation of the data.
       </p>
-      <div style="text-align: center">
-        <div
-          style="
-            display: block;
-            padding: 1em;
-            border-radius: 0.5em;
-            max-width: 100%;
-          "
-        >
-          <img src="./assets/CRATE_layer.svg" />
-        </div>
-      </div>
+      <img src="./assets/CRATE_layer.svg" class="reg-figure"/>
+      <img src="./assets/CRATE_layer.svg" class="reg-figure-narrow"/>
+      <img src="./assets/CRATE_layer.svg" class="reg-figure-very-narrow"/>
       <p>
         The full architecture is simply a concatenation of such layers, with some initial tokenizer and final task-specific architecture (i.e., a classification head).
       </p>
@@ -358,18 +335,9 @@
       <p>
         Below, the classification pipeline for CRATE is depicted. It is virtually identical to the popular vision transformer.
       </p>
-      <div style="text-align: center">
-        <div
-          style="
-            display: block;
-            padding: 1em;
-            border-radius: 0.5em;
-            max-width: 100%;
-          "
-        >
-          <img src="./assets/CRATE_classification.svg" />
-        </div>
-      </div>
+      <img src="./assets/CRATE_classification.svg" class="reg-figure"/>
+      <img src="./assets/CRATE_classification.svg" class="reg-figure-narrow"/>
+      <img src="./assets/CRATE_classification.svg" class="reg-figure-very-narrow"/>
       <p>
         We use soft-max cross entropy loss to train on the supervised image classification task. We obtain competitive performance with the usual vision transformer (ViT) trained on classification, with similar scaling behavior, including  <b>above 80% top-1 accuracy on ImageNet-1K with 25% of the parameters of ViT</b>.
       </p>
@@ -381,47 +349,21 @@
       <p>
         An interesting phenomenon of CRATE is that <i>even when trained on supervised classification</i>, it <i>learns to segment</i> the input images, with such segmentations being easily recoverable via attention maps, as in the following pipeline (similar to DINO).
       </p>
-      <div style="text-align: center">
-        <div
-          style="
-            display: block;
-            padding: 1em;
-            border-radius: 0.5em;
-            max-width: 100%;
-          "
-        >
-          <img src="./assets/CRATE_segmentation.svg" />
-        </div>
-      </div>
+      <img src="./assets/CRATE_segmentation.svg" class="reg-figure"/>
+      <img src="./assets/CRATE_segmentation.svg" class="reg-figure-narrow"/>
+      <img src="./assets/CRATE_segmentation.svg" class="reg-figure-very-narrow"/>
       <p>
         Such segmentations were only previously seen in transformer-like architectures using a complex self-supervised training mechanism as in DINO, yet <b>in CRATE, segmentation emerges as a byproduct of supervised classification training</b>. In particular, the model does not obtain any <i>a priori</i> segmentation information at any time. Below, we show some example segmentations.
       </p>
-      <div style="text-align: center">
-        <div
-          style="
-            display: block;
-            padding: 1em;
-            border-radius: 0.5em;
-          "
-        >
-          <img src="./assets/CRATE_segmentation_examples.svg" />
-        </div>
-      </div>
+      <img src="./assets/CRATE_segmentation_examples.svg" class="reg-figure"/>
+      <img src="./assets/CRATE_segmentation_examples.svg" class="reg-figure-narrow"/>
+      <img src="./assets/CRATE_segmentation_examples.svg" class="reg-figure-very-narrow"/>
       <p>
         Another remarkable property is that <b>attention heads in CRATE automatically carry semantic meaning</b>, which implies that CRATE may have post-hoc interpretability for any classification it makes. Below, we visualize the output of some attention heads across several images and several animals, showing that some attention heads correspond to different parts of the animal, and this correspondence is consistent across different animals and different classes of animals.
       </p>
-      <div style="text-align: center">
-        <div
-          style="
-            display: block;
-            padding: 1em;
-            border-radius: 0.5em;
-            max-width: 100%;
-          "
-        >
-          <img src="./assets/CRATE_semantic_heads.svg" />
-        </div>
-      </div>
+      <img src="./assets/CRATE_semantic_heads.svg" class="reg-figure"/>
+      <img src="./assets/CRATE_semantic_heads.svg" class="reg-figure-narrow"/>
+      <img src="./assets/CRATE_semantic_heads.svg" class="reg-figure-very-narrow"/>
     </section>
 
     <h2>Acknowledgements</h2>
