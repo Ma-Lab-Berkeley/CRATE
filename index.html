@@ -37,7 +37,7 @@
       content="width=device-width, initial-scale=1, minimum-scale=1"
     />
 
-    <link href="assets/favicon.svg" rel="shortcut icon" type="image/x-icon" />
+    <link href="assets/favicon.png" rel="shortcut icon" type="image/x-icon" />
 
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link
@@ -72,8 +72,8 @@
     ></script>
 
     <!-- Image compare utility. -->
-    <link href="./image-compare.css" rel="stylesheet" type="text/css" />
-    <script src="./image-compare.js" type="text/javascript"></script>
+    <!--<link href="./image-compare.css" rel="stylesheet" type="text/css" />
+    <script src="./image-compare.js" type="text/javascript"></script>-->
 
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
@@ -137,6 +137,7 @@
         display: flex;
         flex-wrap: wrap;
         text-align: center;
+        text-wrap: balance;
         justify-content: center;
         gap: 0.4em 1.25em;
         max-width: 30em;
@@ -173,19 +174,24 @@
     <div
       style="
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         gap: 2em;
-        max-width: 1em;
+        max-width: 30em;
         margin: 0 auto;
         font-weight: 400;
+        text-wrap: balance;
+        text-align: center;
       "
     >
-      <div><sup>1</sup>UC&nbsp;Berkeley</div>
-      <div><sup>2</sup>TTIC</div>
-      <div><sup>3</sup>ShanghaiTech</div>
-      <div><sup>4</sup>NYU</div>
-      <div><sup>5</sup>JHU</div>
-      <div><sup>6</sup>HKU</div>
+      <div>
+        <sup>1</sup>UC Berkeley&nbsp;&nbsp;
+        <sup>2</sup>TTIC&nbsp;&nbsp;
+        <sup>3</sup>ShanghaiTech&nbsp;&nbsp;
+        <sup>4</sup>NYU&nbsp;&nbsp;
+        <sup>5</sup>JHU&nbsp;&nbsp;
+        <sup>6</sup>HKU&nbsp;&nbsp;
+      </div>
     </div>
     <div style="height: 1em"></div>
 
@@ -281,12 +287,14 @@
     </section>
 
     <!-- tldr -->
-    <p style="text-align: center">
-      <strong>TLDR</strong>
+    <p style="
+      text-align: center;
+      text-wrap: balance;
+      max-width: 70%;
+    ">
+      <strong>TL;DR:</strong>
       <em>
-        CRATE is a transformer-like architecture which is constructed through first principles 
-        <br />
-        and has competitive performance on standard tasks while also enjoying many side benefits.
+        CRATE is a transformer-like architecture which is constructed through first principles and has competitive performance on standard tasks while also enjoying many side benefits.
       </em>
     </p>
     <div style="height: 1em"></div>
