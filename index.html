@@ -1,387 +1,387 @@
 <!doctype html>
 <html>
-  <head>
-    <!-- Google tag (gtag.js) -->
-    <meta charset="utf-8" />
-    <title>White-Box Transformers via Sparse Rate Reduction</title>
+    <head>
+        <!-- Google tag (gtag.js) -->
+        <meta charset="utf-8" />
+        <title>White-Box Transformers via Sparse Rate Reduction</title>
 
-    <meta content="" name="description" />
-    <meta
-      content="White-Box Transformers via Sparse Rate Reduction"
-      property="og:title"
-    />
-    <meta
-      content="CRATE is a transformer-like architecture which is constructed through first principles and has competitive performance on standard tasks while also enjoying many side benefits."
-      property="og:description"
-    />
-    <meta
-      content="ma-lab-berkeley.github.io/CRATE/assets/CRATE_pipeline.png"
-      property="og:image"
-    />
-    <meta
-      content="White-Box Transformers via Sparse Rate Reduction"
-      property="twitter:title"
-    />
-    <meta
-      content="CRATE is a transformer-like architecture which is constructed through first principles and has competitive performance on standard tasks while also enjoying many side benefits."
-      property="twitter:description"
-    />
-    <meta
-      content="ma-lab-berkeley.github.io/CRATE/assets/CRATE_pipeline.png"
-      property="twitter:image"
-    />
-    <meta property="og:type" content="website" />
-    <meta content="summary_large_image" name="twitter:card" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1"
-    />
+        <meta content="" name="description" />
+        <meta
+            content="White-Box Transformers via Sparse Rate Reduction"
+            property="og:title"
+        />
+        <meta
+            content="CRATE is a transformer-like architecture which is constructed through first principles and has competitive performance on standard tasks while also enjoying many side benefits."
+            property="og:description"
+        />
+        <meta
+            content="ma-lab-berkeley.github.io/CRATE/assets/CRATE_pipeline.png"
+            property="og:image"
+        />
+        <meta
+            content="White-Box Transformers via Sparse Rate Reduction"
+            property="twitter:title"
+        />
+        <meta
+            content="CRATE is a transformer-like architecture which is constructed through first principles and has competitive performance on standard tasks while also enjoying many side benefits."
+            property="twitter:description"
+        />
+        <meta
+            content="ma-lab-berkeley.github.io/CRATE/assets/CRATE_pipeline.png"
+            property="twitter:image"
+        />
+        <meta property="og:type" content="website" />
+        <meta content="summary_large_image" name="twitter:card" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, minimum-scale=1"
+        />
 
-    <link href="assets/favicon.png" rel="shortcut icon" type="image/x-icon" />
+        <link href="assets/favicon.png" rel="shortcut icon" type="image/x-icon" />
 
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link
-      href="https://fonts.gstatic.com"
-      rel="preconnect"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
-      type="text/javascript"
-    ></script>
-    <script type="text/javascript">
-      WebFont.load({
-        google: {
-          families: [
-            "Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic",
-          ],
-        },
-      });
-    </script>
-    <!--[if lt IE 9
-      ]><script
-        src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"
+        <link href="https://fonts.googleapis.com" rel="preconnect" />
+        <link
+            href="https://fonts.gstatic.com"
+            rel="preconnect"
+            crossorigin="anonymous"
+        />
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
         type="text/javascript"
-      ></script
-    ><![endif]-->
-
-    <script
-      src="https://code.jquery.com/jquery-3.7.0.slim.min.js"
-      integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
-      crossorigin="anonymous"
     ></script>
-
-    <!-- Image compare utility. -->
-    <!--<link href="./image-compare.css" rel="stylesheet" type="text/css" />
-    <script src="./image-compare.js" type="text/javascript"></script>-->
-
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css"
-    />
-    <link href="style.css" rel="stylesheet" type="text/css" />
-
-    <!-- KaTeX -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
-      integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn"
-      crossorigin="anonymous"
-    />
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"
-      integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-      integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        renderMathInElement(document.body, {
-          // customised options
-          // • auto-render specific keys, e.g.:
-          delimiters: [
-            { left: "$$", right: "$$", display: true },
-            { left: "$", right: "$", display: false },
-            { left: "\\(", right: "\\)", display: false },
-            { left: "\\[", right: "\\]", display: true },
-          ],
-          // • rendering keys, e.g.:
-          throwOnError: false,
+        <script type="text/javascript">
+        WebFont.load({
+            google: {
+                families: [
+                    "Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic",
+                ],
+            },
         });
-      });
-    </script>
-  </head>
+        </script>
+        <!--[if lt IE 9
+]><script
+src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"
+type="text/javascript"
+></script
+><![endif]-->
 
-  <body>
-    <h1 style="font-family: Lato; margin: 0.25em 0">
-      White-Box Transformers via Sparse Rate Reduction
-    </h1>
+        <script
+        src="https://code.jquery.com/jquery-3.7.0.slim.min.js"
+        integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
+        crossorigin="anonymous"
+    ></script>
 
-    <div style="text-align: center; font-weight: 600">@ NeurIPS 2023 (and more!)</div>
-    <div style="height: 1em"></div>
+        <!-- Image compare utility. -->
+        <!--<link href="./image-compare.css" rel="stylesheet" type="text/css" />
+<script src="./image-compare.js" type="text/javascript"></script>-->
 
-    <!-- Authors -->
-    <div
-      style="
-        display: flex;
-        flex-wrap: wrap;
-        text-align: center;
-        text-wrap: balance;
-        justify-content: center;
-        gap: 0.4em 1.25em;
-        max-width: 30em;
-        margin: 0 auto;
-        font-weight: 600;
-        color: #666;
-      "
-    >
-      <!-- We group authors based on how we want them to wrap. Sam and Yi are
-        grouped together, etc. -->
-      <div>
-        <a href="https://yaodongyu.github.io/" target="_blank">Yaodong Yu</a><sup>1</sup>
-        <div style="width: 1.25em; display: inline-block"></div>
-        <a href="https://sdbuchanan.com/" target="_blank">Sam Buchanan</a><sup>2</sup>
-        <div style="width: 1.25em; display: inline-block"></div>
-        <a href="https://druvpai.github.io/" target="_blank">Druv Pai</a><sup>1</sup>
-      </div>
-      <div>
-        <a href="https://tianzhechu.com/" target="_blank">Tianzhe Chu</a><sup>1 3</sup>
-        <div style="width: 1.25em; display: inline-block"></div>
-        <a href="https://robinwu218.github.io/" target="_blank">Ziyang Wu</a><sup>1</sup>
-        <div style="width: 1.25em; display: inline-block"></div>
-        <a href="https://tsb0601.github.io/petertongsb/" target="_blank">Shengbang Tong</a><sup>1 4</sup>
-      </div>
-      <div>
-        <a href="https://www.cis.jhu.edu/~haeffele/" target="_blank">Ben Haeffele</a><sup>5</sup>
-        <div style="width: 1.25em; display: inline-block"></div>
-        <a href="https://people.eecs.berkeley.edu/~yima/" target="_blank">Yi Ma</a><sup>1 6</sup>
-      </div>
-    </div>
-    <div style="height: 1em"></div>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css"
+        />
+        <link href="style.css" rel="stylesheet" type="text/css" />
 
-    <!-- Affiliations -->
-    <div
-      style="
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 2em;
-        max-width: 30em;
-        margin: 0 auto;
-        font-weight: 400;
-        text-wrap: balance;
-        text-align: center;
-      "
-    >
-      <div>
-        <sup>1</sup>UC Berkeley&nbsp;&nbsp;
-        <sup>2</sup>TTIC&nbsp;&nbsp;
-        <sup>3</sup>ShanghaiTech&nbsp;&nbsp;
-        <sup>4</sup>NYU&nbsp;&nbsp;
-        <sup>5</sup>JHU&nbsp;&nbsp;
-        <sup>6</sup>HKU&nbsp;&nbsp;
-      </div>
-    </div>
-    <div style="height: 1em"></div>
+        <!-- KaTeX -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
+            integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn"
+            crossorigin="anonymous"
+        />
+        <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"
+        integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx"
+        crossorigin="anonymous"
+    ></script>
+        <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+        crossorigin="anonymous"
+    ></script>
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                // customised options
+                // • auto-render specific keys, e.g.:
+                delimiters: [
+                    { left: "$$", right: "$$", display: true },
+                    { left: "$", right: "$", display: false },
+                    { left: "\\(", right: "\\)", display: false },
+                    { left: "\\[", right: "\\]", display: true },
+                ],
+                // • rendering keys, e.g.:
+                throwOnError: false,
+            });
+        });
+        </script>
+    </head>
 
-    <!-- Links -->
-    <div
-      style="
-        display: flex;
-        justify-content: center;
-        gap: 0.5em 1em;
-        flex-wrap: wrap;
-      "
-    >
-      <a href="https://github.com/Ma-Lab-Berkeley/CRATE" target="_blank">
-        <button>
-          <i class="ti ti-brand-github"></i>
-          GitHub
-        </button>
-      </a>
-      <a href="https://arxiv.org/abs/2306.01129" target="_blank">
-        <button>
-          <i class="ti ti-article"></i>
-          Original CRATE arXiv
-        </button>
-      </a>
-      <a href="https://arxiv.org/abs/2306.01129" target="_blank">
-        <button>
-          <i class="ti ti-article"></i>
-          Segmentation arXiv
-        </button>
-      </a>
-      <script type="text/javascript">
-        function toggleBibtex() {
-          const $bibtex = $("#bibtex");
-          $bibtex.css(
-            "display",
-            $bibtex.css("display") === "none" ? "block" : "none",
-          );
-        }
-      </script>
-      <a onclick="toggleBibtex()">
-        <button>
-          <i class="ti ti-book-2"></i>
-          BibTeX
-        </button>
-      </a>
-    </div>
+    <body>
+        <h1 style="font-family: Lato; margin: 0.25em 0">
+            White-Box Transformers via Sparse Rate Reduction
+        </h1>
 
-    <section id="bibtex" style="display: none">
-      <div style="height: 1em"></div>
-      <div style="height: 1em"></div>
-      <p>
-        <code
-          style="
-            font-family:
-              Courier New,
-              Courier,
-              monospace;
-            white-space: nowrap;
-            width: 100%;
-            max-width: 100%;
-            overflow: scroll;
-            display: block;
-            background-color: #f7f7f7;
-            padding: 1em;
-            box-sizing: border-box;
-            border-radius: 0.5em;
-          "
+        <div style="text-align: center; font-weight: 600">@ NeurIPS 2023 (and more!)</div>
+        <div style="height: 1em"></div>
+
+        <!-- Authors -->
+        <div
+            style="
+            display: flex;
+            flex-wrap: wrap;
+            text-align: center;
+            text-wrap: balance;
+            justify-content: center;
+            gap: 0.4em 1.25em;
+            max-width: 30em;
+            margin: 0 auto;
+            font-weight: 600;
+            color: #666;
+            "
         >
-          @article{yu2023white,<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;title={White-Box Transformers via Sparse Rate Reduction},<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;author={<br />
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yu, Yaodong and Buchanan, Sam and Pai, Druv<br />
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and Chu, Tianzhe and Wu, Ziyang and Tong, Shengbang<br /> 
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and Haeffele, Benjamin D and Ma, Yi<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;},<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;journal={arXiv preprint arXiv:2306.01129},<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;year={2023}<br />
-          }<br />
-          <br />
-          @article{yu2023emergence,<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;title={Emergence of Segmentation with Minimalistic White-Box Transformers},<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;author={<br />
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yu, Yaodong and Chu, Tianzhe and Tong, Shengbang and Wu, Ziyang<br /> 
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and Pai, Druv and Buchanan, Sam and Ma, Yi<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;},<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;journal={arXiv preprint arXiv:2308.16271},<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;year={2023}<br />
-          }
+            <!-- We group authors based on how we want them to wrap. Sam and Yi are
+grouped together, etc. -->
+            <div>
+                <a href="https://yaodongyu.github.io/" target="_blank">Yaodong Yu</a><sup>1</sup>
+                <div style="width: 1.25em; display: inline-block"></div>
+                <a href="https://sdbuchanan.com/" target="_blank">Sam Buchanan</a><sup>2</sup>
+                <div style="width: 1.25em; display: inline-block"></div>
+                <a href="https://druvpai.github.io/" target="_blank">Druv Pai</a><sup>1</sup>
+            </div>
+            <div>
+                <a href="https://tianzhechu.com/" target="_blank">Tianzhe Chu</a><sup>1 3</sup>
+                <div style="width: 1.25em; display: inline-block"></div>
+                <a href="https://robinwu218.github.io/" target="_blank">Ziyang Wu</a><sup>1</sup>
+                <div style="width: 1.25em; display: inline-block"></div>
+                <a href="https://tsb0601.github.io/petertongsb/" target="_blank">Shengbang Tong</a><sup>1 4</sup>
+            </div>
+            <div>
+                <a href="https://www.cis.jhu.edu/~haeffele/" target="_blank">Ben Haeffele</a><sup>5</sup>
+                <div style="width: 1.25em; display: inline-block"></div>
+                <a href="https://people.eecs.berkeley.edu/~yima/" target="_blank">Yi Ma</a><sup>1 6</sup>
+            </div>
+        </div>
+        <div style="height: 1em"></div>
+
+        <!-- Affiliations -->
+        <div
+            style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2em;
+            max-width: 30em;
+            margin: 0 auto;
+            font-weight: 400;
+            text-wrap: balance;
+            text-align: center;
+            "
+        >
+            <div>
+                <sup>1</sup>UC Berkeley&nbsp;&nbsp;
+                <sup>2</sup>TTIC&nbsp;&nbsp;
+                <sup>3</sup>ShanghaiTech&nbsp;&nbsp;
+                <sup>4</sup>NYU&nbsp;&nbsp;
+                <sup>5</sup>JHU&nbsp;&nbsp;
+                <sup>6</sup>HKU&nbsp;&nbsp;
+            </div>
+        </div>
+        <div style="height: 1em"></div>
+
+        <!-- Links -->
+        <div
+            style="
+            display: flex;
+            justify-content: center;
+            gap: 0.5em 1em;
+            flex-wrap: wrap;
+            "
+        >
+            <a href="https://github.com/Ma-Lab-Berkeley/CRATE" target="_blank">
+                <button>
+                    <i class="ti ti-brand-github"></i>
+                    GitHub
+                </button>
+            </a>
+            <a href="https://arxiv.org/abs/2306.01129" target="_blank">
+                <button>
+                    <i class="ti ti-article"></i>
+                    Original CRATE arXiv
+                </button>
+            </a>
+            <a href="https://arxiv.org/abs/2308.16271" target="_blank">
+                <button>
+                    <i class="ti ti-article"></i>
+                    Segmentation arXiv
+                </button>
+            </a>
+            <script type="text/javascript">
+            function toggleBibtex() {
+                const $bibtex = $("#bibtex");
+                $bibtex.css(
+                    "display",
+                    $bibtex.css("display") === "none" ? "block" : "none",
+                );
+            }
+            </script>
+            <a onclick="toggleBibtex()">
+                <button>
+                    <i class="ti ti-book-2"></i>
+                    BibTeX
+                </button>
+            </a>
+        </div>
+
+        <section id="bibtex" style="display: none">
+            <div style="height: 1em"></div>
+            <div style="height: 1em"></div>
+            <p>
+                <code
+                    style="
+                    font-family:
+                    Courier New,
+                    Courier,
+                    monospace;
+                    white-space: nowrap;
+                    width: 100%;
+                    max-width: 100%;
+                    overflow: scroll;
+                    display: block;
+                    background-color: #f7f7f7;
+                    padding: 1em;
+                    box-sizing: border-box;
+                    border-radius: 0.5em;
+                    "
+                >
+                    @article{yu2023white,<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;title={White-Box Transformers via Sparse Rate Reduction},<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;author={<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yu, Yaodong and Buchanan, Sam and Pai, Druv<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and Chu, Tianzhe and Wu, Ziyang and Tong, Shengbang<br /> 
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and Haeffele, Benjamin D and Ma, Yi<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;},<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;journal={arXiv preprint arXiv:2306.01129},<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;year={2023}<br />
+                    }<br />
+                    <br />
+                    @article{yu2023emergence,<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;title={Emergence of Segmentation with Minimalistic White-Box Transformers},<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;author={<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yu, Yaodong and Chu, Tianzhe and Tong, Shengbang and Wu, Ziyang<br /> 
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and Pai, Druv and Buchanan, Sam and Ma, Yi<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;},<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;journal={arXiv preprint arXiv:2308.16271},<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;year={2023}<br />
+                    }
 
 
-        </code>
-      </p>
-    </section>
+                </code>
+            </p>
+        </section>
 
-    <!-- tldr -->
-    <p style="
-      text-align: center;
-      text-wrap: balance;
-      max-width: 70%;
-    ">
-      <strong>TL;DR:</strong>
-      <em>
-        CRATE is a transformer-like architecture which is constructed through first principles and has competitive performance on standard tasks while also enjoying many side benefits.
-      </em>
-    </p>
-    <div style="height: 1em"></div>
+        <!-- tldr -->
+        <p style="
+            text-align: center;
+            text-wrap: balance;
+            max-width: 70%;
+            ">
+            <strong>TL;DR:</strong>
+            <em>
+                CRATE is a transformer-like architecture which is constructed through first principles and has competitive performance on standard tasks while also enjoying many side benefits.
+            </em>
+        </p>
+        <div style="height: 1em"></div>
 
-    <!-- Big figure -->
-    <img src="./assets/CRATE_pipeline.svg" class="big-figure" />
-    <img src="./assets/CRATE_pipeline.svg" class="big-figure-narrow" />
-    <img src="./assets/CRATE_pipeline.svg" class="big-figure-very-narrow"/>
-    <div style="height: 1em"></div>
+        <!-- Big figure -->
+        <img src="./assets/CRATE_pipeline.svg" class="big-figure" />
+        <img src="./assets/CRATE_pipeline.svg" class="big-figure-narrow" />
+        <img src="./assets/CRATE_pipeline.svg" class="big-figure-very-narrow"/>
+        <div style="height: 1em"></div>
 
-    <section>
-      <h2>What is CRATE?</h2>
-      <p>
-        <b>CRATE</b> (<b>C</b>oding <b>RA</b>te reduction <b>T</b>ransform<b>E</b>r) is a white-box (mathematically interpretable) transformer architecture, where each layer performs a single step of an alternating minimization algorithm to optimize the sparse rate reduction objective
-        \[\max_{f}\mathbb{E}_{\mathbf{Z} = f(\mathbf{X})}[\Delta R(\mathbf{Z} \mid \mathbf{U}_{[K]}) - \lambda \|\mathbf{Z}\|_{0}],\]
-        where the \(\ell^{0}\) norm promotes the sparsity of the final token representations \(\mathbf{Z} = f(\mathbf{X})\). The function \(f\) is defined as
-        \[f = f^{L} \circ f^{L - 1} \circ \cdots \circ f^{1} \circ f^{0},\]
-        where \(f^{0}\) is the pre-processing mapping, and \(f^{\ell}\) is the \(\ell^{\mathrm{th}}\)-layer forward mapping that transforms the token distribution to optimize the above sparse rate reduction objective incrementally. More specifically, \(f^{\ell}\) transforms the token representations \(\mathbf{Z}^{\ell}\), which are the representations at the input of the \(\ell^{\mathrm{th}}\) layer, to \(\mathbf{Z}^{\ell + 1}\) via the \(\texttt{MSSA}\) (<b>M</b>ulti-Head <b>S</b>ubspace <b>S</b>elf-<b>A</b>ttention) block and the 
-        \(\texttt{ISTA}\) (<b>I</b>terative <b>S</b>hrinkage-<b>T</b>hresholding <b>A</b>lgorithm) block, i.e.,
-        \[\mathbf{Z}^{\ell + 1} = f^{\ell}(\mathbf{Z}^{\ell}) = \texttt{ISTA}(\mathbf{Z}^{\ell} + \texttt{MSSA}(\mathbf{Z}^{\ell})).\]
-      </p>
-    </section>
+        <section>
+            <h2>What is CRATE?</h2>
+            <p>
+                <b>CRATE</b> (<b>C</b>oding <b>RA</b>te reduction <b>T</b>ransform<b>E</b>r) is a white-box (mathematically interpretable) transformer architecture, where each layer performs a single step of an alternating minimization algorithm to optimize the sparse rate reduction objective
+                \[\max_{f}\mathbb{E}_{\mathbf{Z} = f(\mathbf{X})}[\Delta R(\mathbf{Z} \mid \mathbf{U}_{[K]}) - \lambda \|\mathbf{Z}\|_{0}],\]
+                where the \(\ell^{0}\) norm promotes the sparsity of the final token representations \(\mathbf{Z} = f(\mathbf{X})\). The function \(f\) is defined as
+                \[f = f^{L} \circ f^{L - 1} \circ \cdots \circ f^{1} \circ f^{0},\]
+                where \(f^{0}\) is the pre-processing mapping, and \(f^{\ell}\) is the \(\ell^{\mathrm{th}}\)-layer forward mapping that transforms the token distribution to optimize the above sparse rate reduction objective incrementally. More specifically, \(f^{\ell}\) transforms the token representations \(\mathbf{Z}^{\ell}\), which are the representations at the input of the \(\ell^{\mathrm{th}}\) layer, to \(\mathbf{Z}^{\ell + 1}\) via the \(\texttt{MSSA}\) (<b>M</b>ulti-Head <b>S</b>ubspace <b>S</b>elf-<b>A</b>ttention) block and the 
+                \(\texttt{ISTA}\) (<b>I</b>terative <b>S</b>hrinkage-<b>T</b>hresholding <b>A</b>lgorithm) block, i.e.,
+                \[\mathbf{Z}^{\ell + 1} = f^{\ell}(\mathbf{Z}^{\ell}) = \texttt{ISTA}(\mathbf{Z}^{\ell} + \texttt{MSSA}(\mathbf{Z}^{\ell})).\]
+            </p>
+        </section>
 
-    <section>
-      <h2>Architecture</h2>
+        <section>
+            <h2>Architecture</h2>
 
-      <p>
-        The following figure presents an overview of the general CRATE architecture:
-      </p>
-      <img src="./assets/CRATE_pipeline.svg" class="reg-figure"/>
-      <img src="./assets/CRATE_pipeline.svg" class="reg-figure-narrow"/>
-      <img src="./assets/CRATE_pipeline.svg" class="reg-figure-very-narrow"/>
-      <p>
-        After encoding input data \(\mathbf{X}\) as a sequence of tokens \(\mathbf{Z}^1\), CRATE constructs a deep network that transforms the data to a canonical configuration of low-dimensional subspaces by successive <it style="color:#00BFFF">compression</it> against a local model for the distribution, generating \(\mathbf{Z}^{\ell+1/2}\), and <it style="color:#008000">sparsification</it> against a global dictionary, generating \(\mathbf{Z}^{\ell+1}\). Repeatedly stacking these blocks and training the model parameters via backpropagation yields a powerful and interpretable representation of the data.
-      </p>
-      <img src="./assets/CRATE_layer.svg" class="reg-figure"/>
-      <img src="./assets/CRATE_layer.svg" class="reg-figure-narrow"/>
-      <img src="./assets/CRATE_layer.svg" class="reg-figure-very-narrow"/>
-      <p>
-        The full architecture is simply a concatenation of such layers, with some initial tokenizer and final task-specific architecture (i.e., a classification head).
-      </p>
-    </section>
+            <p>
+                The following figure presents an overview of the general CRATE architecture:
+            </p>
+            <img src="./assets/CRATE_pipeline.svg" class="reg-figure"/>
+            <img src="./assets/CRATE_pipeline.svg" class="reg-figure-narrow"/>
+            <img src="./assets/CRATE_pipeline.svg" class="reg-figure-very-narrow"/>
+            <p>
+                After encoding input data \(\mathbf{X}\) as a sequence of tokens \(\mathbf{Z}^1\), CRATE constructs a deep network that transforms the data to a canonical configuration of low-dimensional subspaces by successive <it style="color:#00BFFF">compression</it> against a local model for the distribution, generating \(\mathbf{Z}^{\ell+1/2}\), and <it style="color:#008000">sparsification</it> against a global dictionary, generating \(\mathbf{Z}^{\ell+1}\). Repeatedly stacking these blocks and training the model parameters via backpropagation yields a powerful and interpretable representation of the data.
+            </p>
+            <img src="./assets/CRATE_layer.svg" class="reg-figure"/>
+            <img src="./assets/CRATE_layer.svg" class="reg-figure-narrow"/>
+            <img src="./assets/CRATE_layer.svg" class="reg-figure-very-narrow"/>
+            <p>
+                The full architecture is simply a concatenation of such layers, with some initial tokenizer and final task-specific architecture (i.e., a classification head).
+            </p>
+        </section>
 
-    <section>
-      <h2>Classification</h2>
-      <p>
-        Below, the classification pipeline for CRATE is depicted. It is virtually identical to the popular vision transformer.
-      </p>
-      <img src="./assets/CRATE_classification.svg" class="reg-figure"/>
-      <img src="./assets/CRATE_classification.svg" class="reg-figure-narrow"/>
-      <img src="./assets/CRATE_classification.svg" class="reg-figure-very-narrow"/>
-      <p>
-        We use soft-max cross entropy loss to train on the supervised image classification task. We obtain competitive performance with the usual vision transformer (ViT) trained on classification, with similar scaling behavior, including  <b>above 80% top-1 accuracy on ImageNet-1K with 25% of the parameters of ViT</b>.
-      </p>
-    </section>
+        <section>
+            <h2>Classification</h2>
+            <p>
+                Below, the classification pipeline for CRATE is depicted. It is virtually identical to the popular vision transformer.
+            </p>
+            <img src="./assets/CRATE_classification.svg" class="reg-figure"/>
+            <img src="./assets/CRATE_classification.svg" class="reg-figure-narrow"/>
+            <img src="./assets/CRATE_classification.svg" class="reg-figure-very-narrow"/>
+            <p>
+                We use soft-max cross entropy loss to train on the supervised image classification task. We obtain competitive performance with the usual vision transformer (ViT) trained on classification, with similar scaling behavior, including  <b>above 80% top-1 accuracy on ImageNet-1K with 25% of the parameters of ViT</b>.
+            </p>
+        </section>
 
-    <section>
-      <h2>Segmentation and Object Detection</h2>
+        <section>
+            <h2>Segmentation and Object Detection</h2>
 
-      <p>
-        An interesting phenomenon of CRATE is that <i>even when trained on supervised classification</i>, it <i>learns to segment</i> the input images, with such segmentations being easily recoverable via attention maps, as in the following pipeline (similar to DINO).
-      </p>
-      <img src="./assets/CRATE_segmentation.svg" class="reg-figure"/>
-      <img src="./assets/CRATE_segmentation.svg" class="reg-figure-narrow"/>
-      <img src="./assets/CRATE_segmentation.svg" class="reg-figure-very-narrow"/>
-      <p>
-        Such segmentations were only previously seen in transformer-like architectures using a complex self-supervised training mechanism as in DINO, yet <b>in CRATE, segmentation emerges as a byproduct of supervised classification training</b>. In particular, the model does not obtain any <i>a priori</i> segmentation information at any time. Below, we show some example segmentations.
-      </p>
-      <img src="./assets/CRATE_segmentation_examples.svg" class="reg-figure"/>
-      <img src="./assets/CRATE_segmentation_examples.svg" class="reg-figure-narrow"/>
-      <img src="./assets/CRATE_segmentation_examples.svg" class="reg-figure-very-narrow"/>
-      <p>
-        Another remarkable property is that <b>attention heads in CRATE automatically carry semantic meaning</b>, which implies that CRATE may have post-hoc interpretability for any classification it makes. Below, we visualize the output of some attention heads across several images and several animals, showing that some attention heads correspond to different parts of the animal, and this correspondence is consistent across different animals and different classes of animals.
-      </p>
-      <img src="./assets/CRATE_semantic_heads.svg" class="reg-figure"/>
-      <img src="./assets/CRATE_semantic_heads.svg" class="reg-figure-narrow"/>
-      <img src="./assets/CRATE_semantic_heads.svg" class="reg-figure-very-narrow"/>
-    </section>
+            <p>
+                An interesting phenomenon of CRATE is that <i>even when trained on supervised classification</i>, it <i>learns to segment</i> the input images, with such segmentations being easily recoverable via attention maps, as in the following pipeline (similar to DINO).
+            </p>
+            <img src="./assets/CRATE_segmentation.svg" class="reg-figure"/>
+            <img src="./assets/CRATE_segmentation.svg" class="reg-figure-narrow"/>
+            <img src="./assets/CRATE_segmentation.svg" class="reg-figure-very-narrow"/>
+            <p>
+                Such segmentations were only previously seen in transformer-like architectures using a complex self-supervised training mechanism as in DINO, yet <b>in CRATE, segmentation emerges as a byproduct of supervised classification training</b>. In particular, the model does not obtain any <i>a priori</i> segmentation information at any time. Below, we show some example segmentations.
+            </p>
+            <img src="./assets/CRATE_segmentation_examples.svg" class="reg-figure"/>
+            <img src="./assets/CRATE_segmentation_examples.svg" class="reg-figure-narrow"/>
+            <img src="./assets/CRATE_segmentation_examples.svg" class="reg-figure-very-narrow"/>
+            <p>
+                Another remarkable property is that <b>attention heads in CRATE automatically carry semantic meaning</b>, which implies that CRATE may have post-hoc interpretability for any classification it makes. Below, we visualize the output of some attention heads across several images and several animals, showing that some attention heads correspond to different parts of the animal, and this correspondence is consistent across different animals and different classes of animals.
+            </p>
+            <img src="./assets/CRATE_semantic_heads.svg" class="reg-figure"/>
+            <img src="./assets/CRATE_semantic_heads.svg" class="reg-figure-narrow"/>
+            <img src="./assets/CRATE_semantic_heads.svg" class="reg-figure-very-narrow"/>
+        </section>
 
-    <h2>Acknowledgements</h2>
-    <section>
-      <p>
-        This work is partially supported by the ONR grant N00014-22-1-2102, and the joint Simons Foundation-NSF DMS grant 2031899.
-      </p>
-      <p>
-        This website template was adapted from Brent Yi's project page for <a href="https://brentyi.github.io/tilted/">TILTED</a>.
-      </p>
-    </section>
-  </body>
+        <h2>Acknowledgements</h2>
+        <section>
+            <p>
+                This work is partially supported by the ONR grant N00014-22-1-2102, and the joint Simons Foundation-NSF DMS grant 2031899.
+            </p>
+            <p>
+                This website template was adapted from Brent Yi's project page for <a href="https://brentyi.github.io/tilted/">TILTED</a>.
+            </p>
+        </section>
+    </body>
 </html>
