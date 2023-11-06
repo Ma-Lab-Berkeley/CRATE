@@ -124,13 +124,12 @@ Link: [crate-emergence.ipynb](https://colab.research.google.com/drive/1rYn_Nlepy
 For technical details and full experimental results, please check the [crate paper](https://arxiv.org/abs/2306.01129) and [crate segmentation paper](https://arxiv.org/abs/2308.16271). Please consider citing our work if you find it helpful to yours:
 
 ```
-@inproceedings{
-yu2023whitebox,
-title={White-Box Transformers via Sparse Rate Reduction},
-author={Yaodong Yu and Sam Buchanan and Druv Pai and Tianzhe Chu and Ziyang Wu and Shengbang Tong and Benjamin David Haeffele and Yi Ma},
-booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
-year={2023},
-url={https://openreview.net/forum?id=THfl8hdVxH}
+@inproceedings{yu2023whitebox,
+  title={White-Box Transformers via Sparse Rate Reduction},
+  author={Yaodong Yu and Sam Buchanan and Druv Pai and Tianzhe Chu and Ziyang Wu and Shengbang Tong and Benjamin David Haeffele and Yi Ma},
+  booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+  year={2023},
+  url={https://openreview.net/forum?id=THfl8hdVxH}
 }
 ```
 ```
