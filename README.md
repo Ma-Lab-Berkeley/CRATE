@@ -1,7 +1,7 @@
 # CRATE (Coding RAte reduction TransformEr)
 This repository is the official PyTorch implementation of the papers: 
 
-- **White-Box Transformers via Sparse Rate Reduction** [**NeurIPS-2023**, [paper link](https://arxiv.org/abs/2306.01129)]. By [Yaodong Yu](https://yaodongyu.github.io) (UC Berkeley), [Sam Buchanan](https://sdbuchanan.com) (TTIC), [Druv Pai](https://druvpai.github.io) (UC Berkeley), [Tianzhe Chu](https://tianzhechu.com/) (UC Berkeley), [Ziyang Wu](https://robinwu218.github.io/) (UC Berkeley), [Shengbang Tong](https://tsb0601.github.io/petertongsb/) (UC Berkeley), [Benjamin D Haeffele](https://www.cis.jhu.edu/~haeffele/#about) (Johns Hopkins University), and [Yi Ma](http://people.eecs.berkeley.edu/~yima/) (UC Berkeley). 
+- **White-Box Transformers via Sparse Rate Reduction** [**NeurIPS-2023**, [paper link](https://openreview.net/forum?id=THfl8hdVxH#)]. By [Yaodong Yu](https://yaodongyu.github.io) (UC Berkeley), [Sam Buchanan](https://sdbuchanan.com) (TTIC), [Druv Pai](https://druvpai.github.io) (UC Berkeley), [Tianzhe Chu](https://tianzhechu.com/) (UC Berkeley), [Ziyang Wu](https://robinwu218.github.io/) (UC Berkeley), [Shengbang Tong](https://tsb0601.github.io/petertongsb/) (UC Berkeley), [Benjamin D Haeffele](https://www.cis.jhu.edu/~haeffele/#about) (Johns Hopkins University), and [Yi Ma](http://people.eecs.berkeley.edu/~yima/) (UC Berkeley). 
 - **Emergence of Segmentation with Minimalistic White-Box Transformers** [[paper link](https://arxiv.org/abs/2308.16271)]. By [Yaodong Yu](https://yaodongyu.github.io)* (UC Berkeley),  [Tianzhe Chu](https://tianzhechu.com/)* (UC Berkeley & ShanghaiTech U), [Shengbang Tong](https://tsb0601.github.io/petertongsb/) (UC Berkeley & NYU), [Ziyang Wu](https://robinwu218.github.io/) (UC Berkeley),  [Druv Pai](https://druvpai.github.io) (UC Berkeley),  [Sam Buchanan](https://sdbuchanan.com) (TTIC), and [Yi Ma](http://people.eecs.berkeley.edu/~yima/) (UC Berkeley & HKU). 2023. (* equal contribution)
 
 ## What is CRATE?
@@ -124,11 +124,13 @@ Link: [crate-emergence.ipynb](https://colab.research.google.com/drive/1rYn_Nlepy
 For technical details and full experimental results, please check the [crate paper](https://arxiv.org/abs/2306.01129) and [crate segmentation paper](https://arxiv.org/abs/2308.16271). Please consider citing our work if you find it helpful to yours:
 
 ```
-@article{yu2023white,
-  title={White-Box Transformers via Sparse Rate Reduction},
-  author={Yu, Yaodong and Buchanan, Sam and Pai, Druv and Chu, Tianzhe and Wu, Ziyang and Tong, Shengbang and Haeffele, Benjamin D and Ma, Yi},
-  journal={arXiv preprint arXiv:2306.01129},
-  year={2023}
+@inproceedings{
+yu2023whitebox,
+title={White-Box Transformers via Sparse Rate Reduction},
+author={Yaodong Yu and Sam Buchanan and Druv Pai and Tianzhe Chu and Ziyang Wu and Shengbang Tong and Benjamin David Haeffele and Yi Ma},
+booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+year={2023},
+url={https://openreview.net/forum?id=THfl8hdVxH}
 }
 ```
 ```
