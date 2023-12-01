@@ -124,11 +124,11 @@ Link: [crate-emergence.ipynb](https://colab.research.google.com/drive/1rYn_Nlepy
 
 ### Pre-training CRATE-GPT
 
-We use the [NanoGPT](https://github.com/karpathy/nanoGPT) framework from Andrew Karpathy for pre-training. The CRATE arch file is at [`model/crate_gpt.py`](https://github.com/Ma-Lab-Berkeley/CRATE/tree/main/model/crate_gpt.py). To adapt CRATE to the NanoGPT framework, simply move `model/crare_gpt.py` to the `nanoGPT/` repo, and change the dependency of `nanoGPT/model.py` to `nanoGPT/crate_gpt.py` in the `nanoGPT/train,py` script. The pretrained checkpoint is on [HuggingFace](https://huggingface.co/JackBAI/CRATE-GPT2-Base).
+We use the [NanoGPT](https://github.com/karpathy/nanoGPT) framework from Andrew Karpathy for pre-training. The CRATE arch file is at [`model/crate_gpt.py`](https://github.com/Ma-Lab-Berkeley/CRATE/tree/main/model/crate_gpt.py). To adapt CRATE to the NanoGPT framework, simply move `model/crare_gpt.py` to the `nanoGPT/` repo, and change the dependency of `nanoGPT/model.py` to `nanoGPT/crate_gpt.py` in the `nanoGPT/train,py` script. The pretrained checkpoint is released on [HuggingFace](https://huggingface.co/JackBAI/CRATE-GPT2-Base).
 
 ### Pre-training CRATE-BERT
 
-
+To be completed soon.
 
 ## Reference
 For technical details and full experimental results, please check the [crate paper](https://arxiv.org/abs/2306.01129) and [crate segmentation paper](https://arxiv.org/abs/2308.16271). Please consider citing our work if you find it helpful to yours:
