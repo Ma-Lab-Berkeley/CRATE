@@ -158,7 +158,7 @@ The other sizes in the paper are also importable in that way. Modifying the `mod
 | model | `dim` | `n_heads` | `depth` | pre-trained checkpoint |
 | -------- | -------- | -------- | -------- | -------- | 
 | **CRATE-MAE-S**(mall)    | 576   | 12   | 12 | TODO | 
-| **CRATE-MAE-B**(ase)    | 768   | 12   | 12 | [link]() | 
+| **CRATE-MAE-B**(ase)    | 768   | 12   | 12 | [link](https://drive.google.com/file/d/11i5BMwymqOsunq44WD3omN5mS6ZREQPO/view?usp=sharing) | 
 
 ## Training/Fine-Tuning CRATE-MAE
 To train or fine-tune a CRATE-MAE model on ImageNet-1K, please refer to the [codebase on MAE training](https://github.com/facebookresearch/mae) from Meta FAIR. The `models_mae.py` file in that codebase can be replaced with the contents of `model/crate_ae/crate_ae.py`, and the rest of the code should go through with minimal alterations.
