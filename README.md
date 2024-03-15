@@ -8,7 +8,28 @@ This repository is the official PyTorch implementation of the papers:
 Also, we have released a larger journal-length overview paper of this line of research, which contains a superset of all the results presented above, and also more results in NLP and vision SSL.
 - **White-Box Transformers via Sparse Rate Reduction: Compression is All There Is?** [[paper link](https://arxiv.org/abs/2311.13110)]. By [Yaodong Yu](https://yaodongyu.github.io) (UC Berkeley), [Sam Buchanan](https://sdbuchanan.com) (TTIC), [Druv Pai](https://druvpai.github.io) (UC Berkeley), [Tianzhe Chu](https://tianzhechu.com/) (UC Berkeley), [Ziyang Wu](https://robinwu218.github.io/) (UC Berkeley), [Shengbang Tong](https://tsb0601.github.io/petertongsb/) (UC Berkeley), [Hao Bai](https://www.jackgethome.com/) (UIUC), [Yuexiang Zhai](https://yx-s-z.github.io/) (UC Berkeley), [Benjamin D Haeffele](https://www.cis.jhu.edu/~haeffele/#about) (Johns Hopkins University), and [Yi Ma](http://people.eecs.berkeley.edu/~yima/) (UC Berkeley).
 
-## What is CRATE?
+
+# Table of Contents
+
+* [CRATE (Coding RAte reduction TransformEr)](#crate-coding-rate-reduction-transformer)
+    * [Theoretical Background: What is CRATE?](#theoretical-background-what-is-crate)
+      * [1. CRATE Architecture overview](#1-crate-architecture-overview)
+      * [2. One layer/block of CRATE](#2-one-layerblock-of-crate)
+      * [3. Per-layer optimization in CRATE](#3-per-layer-optimization-in-crate)
+      * [4. Segmentation visualization of CRATE](#4-segmentation-visualization-of-crate)
+   * [Autoencoding](#autoencoding)
+* [Implementation and experiments](#implementation-and-experiments)
+   * [Constructing a CRATE model](#constructing-a-crate-model)
+      * [Pre-trained Checkpoints (ImageNet-1K)](#pre-trained-checkpoints-imagenet-1k)
+   * [Training CRATE on ImageNet](#training-crate-on-imagenet)
+   * [Finetuning pretrained / training random initialized CRATE on CIFAR10](#finetuning-pretrained--training-random-initialized-crate-on-cifar10)
+   * [Demo: Emergent segmentation in CRATE](#demo-emergent-segmentation-in-crate)
+   * [Constructing a CRATE autoencoding model](#constructing-a-crate-autoencoding-model)
+      * [Pre-trained Checkpoints (ImageNet-1K)](#pre-trained-checkpoints-imagenet-1k-1)
+   * [Training/Fine-Tuning CRATE-MAE](#trainingfine-tuning-crate-mae)
+* [Reference](#reference)
+
+## Theoretical Background: What is CRATE?
 CRATE (Coding RAte reduction TransformEr) is a white-box (mathematically interpretable) transformer architecture, where each layer performs a single step of an alternating minimization algorithm to optimize the **sparse rate reduction objective**
  <p align="center">
     <img src="figs/fig_objective.png" width="400"\>
@@ -76,6 +97,7 @@ It has many of the same empirical properties as the base **CRATE** model, such a
 <p align="center">
 
 
+# Implementation and Experiments
 
 ## Constructing a CRATE model
 A CRATE model can be defined using the following code, (the below parameters are specified for CRATE-Tiny)
@@ -135,8 +157,9 @@ python finetune.py
 ```
 Replace `CKPT_DIR` with the path for the pretrained CRATE weight, and replace `DATA_DIR` with the path for the `CIFAR10` dataset. If `CKPT_DIR` is `None`, then this script is for training CRATE from random initialization on CIFAR10.
 
-## Demo for the segmentations
+## Demo: Emergent segmentation in CRATE
 
+CRATE models exhibit emergent segmentation in their self-attention maps solely through supervised training.
 We provide a Colab Jupyter notebook to visualize the emerged segmentations from a supervised **CRATE**. The demo provides visualizations which match the segmentation figures above.
 
 Link: [crate-emergence.ipynb](https://colab.research.google.com/drive/1rYn_NlepyW7Fu5LDliyBDmFZylHco7ss?usp=sharing) (in colab)
@@ -163,7 +186,7 @@ The other sizes in the paper are also importable in that way. Modifying the `mod
 ## Training/Fine-Tuning CRATE-MAE
 To train or fine-tune a CRATE-MAE model on ImageNet-1K, please refer to the [codebase on MAE training](https://github.com/facebookresearch/mae) from Meta FAIR. The `models_mae.py` file in that codebase can be replaced with the contents of `model/crate_ae/crate_ae.py`, and the rest of the code should go through with minimal alterations.
 
-## Reference
+# Reference
 For technical details and full experimental results, please check the [CRATE paper](https://arxiv.org/abs/2306.01129), [CRATE segmentation paper](https://arxiv.org/abs/2308.16271), [CRATE autoencoding paper](https://openreview.net/forum?id=PvyOYleymy), or [the long-form overview paper](https://arxiv.org/abs/2311.13110). Please consider citing our work if you find it helpful to yours:
 
 ```
@@ -186,11 +209,11 @@ For technical details and full experimental results, please check the [CRATE pap
 }
 ```
 ```
-@inproceedings{pai2023masked,
+@inproceedings{pai2024masked,
   title={Masked Completion via Structured Diffusion with White-Box Transformers},
   author={Pai, Druv and Buchanan, Sam and Wu, Ziyang and Yu, Yaodong and Ma, Yi},
   booktitle={The Twelfth International Conference on Learning Representations},
-  year={2023}
+  year={2024}
 }
 ```
 ```
