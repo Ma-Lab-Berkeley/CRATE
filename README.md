@@ -2,55 +2,82 @@
 This repository is the official PyTorch implementation of the papers: 
 
 - **White-Box Transformers via Sparse Rate Reduction** [**NeurIPS-2023**, [paper link](https://openreview.net/forum?id=THfl8hdVxH#)]. By [Yaodong Yu](https://yaodongyu.github.io) (UC Berkeley), [Sam Buchanan](https://sdbuchanan.com) (TTIC), [Druv Pai](https://druvpai.github.io) (UC Berkeley), [Tianzhe Chu](https://tianzhechu.com/) (UC Berkeley), [Ziyang Wu](https://robinwu218.github.io/) (UC Berkeley), [Shengbang Tong](https://tsb0601.github.io/petertongsb/) (UC Berkeley), [Benjamin D Haeffele](https://www.cis.jhu.edu/~haeffele/#about) (Johns Hopkins University), and [Yi Ma](http://people.eecs.berkeley.edu/~yima/) (UC Berkeley). 
-- **Emergence of Segmentation with Minimalistic White-Box Transformers** [[paper link](https://arxiv.org/abs/2308.16271)]. By [Yaodong Yu](https://yaodongyu.github.io)* (UC Berkeley),  [Tianzhe Chu](https://tianzhechu.com/)* (UC Berkeley & ShanghaiTech U), [Shengbang Tong](https://tsb0601.github.io/petertongsb/) (UC Berkeley & NYU), [Ziyang Wu](https://robinwu218.github.io/) (UC Berkeley),  [Druv Pai](https://druvpai.github.io) (UC Berkeley),  [Sam Buchanan](https://sdbuchanan.com) (TTIC), and [Yi Ma](http://people.eecs.berkeley.edu/~yima/) (UC Berkeley & HKU). 2023. (* equal contribution)
+- **Emergence of Segmentation with Minimalistic White-Box Transformers** [**CPAL-2024**, [paper link](https://arxiv.org/abs/2308.16271)]. By [Yaodong Yu](https://yaodongyu.github.io)* (UC Berkeley),  [Tianzhe Chu](https://tianzhechu.com/)* (UC Berkeley & ShanghaiTech U), [Shengbang Tong](https://tsb0601.github.io/petertongsb/) (UC Berkeley & NYU), [Ziyang Wu](https://robinwu218.github.io/) (UC Berkeley),  [Druv Pai](https://druvpai.github.io) (UC Berkeley),  [Sam Buchanan](https://sdbuchanan.com) (TTIC), and [Yi Ma](http://people.eecs.berkeley.edu/~yima/) (UC Berkeley & HKU). 2023. (* equal contribution)
+- **Masked Autoencoding via Structured Diffusion with White-Box Transformers** [**ICLR-2024**, [paper link](https://openreview.net/forum?id=PvyOYleymy)]. By [Druv Pai](https://druvpai.github.io) (UC Berkeley), [Ziyang Wu](https://robinwu218.github.io/) (UC Berkeley), [Sam Buchanan](https://sdbuchanan.com), [Yaodong Yu](https://yaodongyu.github.io) (UC Berkeley), and [Yi Ma](http://people.eecs.berkeley.edu/~yima/) (UC Berkeley).
+
+Also, we have released a larger journal-length overview paper of this line of research, which contains a superset of all the results presented above, and also more results in NLP and vision SSL.
+- **White-Box Transformers via Sparse Rate Reduction: Compression is All There Is?** [[paper link](https://arxiv.org/abs/2311.13110)]. By [Yaodong Yu](https://yaodongyu.github.io) (UC Berkeley), [Sam Buchanan](https://sdbuchanan.com) (TTIC), [Druv Pai](https://druvpai.github.io) (UC Berkeley), [Tianzhe Chu](https://tianzhechu.com/) (UC Berkeley), [Ziyang Wu](https://robinwu218.github.io/) (UC Berkeley), [Shengbang Tong](https://tsb0601.github.io/petertongsb/) (UC Berkeley), [Hao Bai](https://www.jackgethome.com/) (UIUC), [Yuexiang Zhai](https://yx-s-z.github.io/) (UC Berkeley), [Benjamin D Haeffele](https://www.cis.jhu.edu/~haeffele/#about) (Johns Hopkins University), and [Yi Ma](http://people.eecs.berkeley.edu/~yima/) (UC Berkeley).
 
 ## What is CRATE?
 CRATE (Coding RAte reduction TransformEr) is a white-box (mathematically interpretable) transformer architecture, where each layer performs a single step of an alternating minimization algorithm to optimize the **sparse rate reduction objective**
  <p align="center">
-    <img src="figs/fig_objective.png" width="700"\>
+    <img src="figs/fig_objective.png" width="400"\>
 </p>
 <p align="center">
 
-where the $\ell^{0}$-norm promotes the sparsity of the final token representations $\mathbf{Z} = f(\mathbf{X})$. The function $f$ is defined as 
-$$f=f^{L} \circ f^{L-1} \circ \cdots \circ f^{1} \circ f^{0},$$
-$f^0$ is the pre-processing mapping, and $f^{\ell}$ is the $\ell$-th layer forward mapping that transforms the token distribution to optimize the above sparse rate reduction objective incrementally. More specifically, $f^{\ell}$ transforms the $\ell$-th layer token representations $\mathbf{Z}^{\ell}$ to  $\mathbf{Z}^{\ell+1}$ via the $\texttt{MSSA}$ (Multi-Head Subspace Self-Attention) block and the $\texttt{ISTA}$ (Iterative Shrinkage-Thresholding Algorithms) block, i.e.,
-$$\mathbf{Z}^{\ell+1} = f^{\ell}(\mathbf{Z}^{\ell}) = \texttt{ISTA}(\mathbf{Z}^{\ell} + \texttt{MSSA}(\mathbf{Z}^{\ell})).$$
+where $R$ and $R^{c}$ are different _coding rates_ for the input representations w.r.t.~different codebooks, and the $\ell^{0}$-norm promotes the sparsity of the final token representations $\boldsymbol{Z} = f(\boldsymbol{X})$. The function $f$ is defined as 
+$$f=f^{L} \circ f^{L-1} \circ \cdots \circ f^{1} \circ f^{\mathrm{pre}},$$
+where $f^{\mathrm{pre}}$ is the pre-processing mapping, and $f^{\ell}$ is the $\ell$-th layer forward mapping that transforms the token distribution to optimize the above sparse rate reduction objective incrementally. More specifically, $f^{\ell}$ transforms the $\ell$-th layer token representations $\boldsymbol{Z}^{\ell}$ to  $\boldsymbol{Z}^{\ell+1}$ via the $\texttt{MSSA}$ (Multi-Head Subspace Self-Attention) block and the $\texttt{ISTA}$ (Iterative Shrinkage-Thresholding Algorithms) block, i.e.,
+$$\boldsymbol{Z}^{\ell+1} = f^{\ell}(\boldsymbol{Z}^{\ell}) = \texttt{ISTA}(\boldsymbol{Z}^{\ell} + \texttt{MSSA}(\boldsymbol{Z}^{\ell})).$$
 
 ### 1. CRATE Architecture overview
 
-Figure 1 presents an overview of the pipeline for our proposed **CRATE** architecture:
+The following figure presents an overview of the pipeline for our proposed **CRATE** architecture:
 
 <p align="center">
-    <img src="figs/fig1.png" width="700"\>
+    <img src="figs/fig_pipeline.png" width="900"\>
 </p>
 <p align="center">
 
 ### 2. One layer/block of CRATE
 
-Figure 2 shows the overall architecture of one block of **CRATE**:
+The following figure shows the overall architecture of one layer of **CRATE** as the composition of $\texttt{MSSA}$ and $\texttt{ISTA}$ blocks.
 
 <p align="center">
-    <img src="figs/fig_arch.png" width="600"\>
+    <img src="figs/fig_arch.png" width="900"\>
 </p>
 <p align="center">
 
 ### 3. Per-layer optimization in CRATE
 
-In Figure 3, we measure the compression term [ $R^{c}$ ($\mathbf{Z}^{\ell+1/2}$) ] and the sparsity term [ $||\mathbf{Z}^{\ell+1}||_0$ ] defined in the **sparse rate reduction objective**, and we find that each layer of **CRATE** indeed optimizes the targeted objectives:
+In the following figure, we measure the compression term [ $R^{c}$ ($\boldsymbol{Z}^{\ell+1/2}$) ] and the sparsity term [ $||\boldsymbol{Z}^{\ell+1}||_0$ ] defined in the **sparse rate reduction objective**, and we find that each layer of **CRATE** indeed optimizes the targeted objectives, showing that our white-box theoretical design is predictive of practice.
 <p align="center">
-    <img src="figs/fig3.png" width="600"\>
+    <img src="figs/fig_layerwise.png" width="900"\>
 </p>
 <p align="center">
 
 ### 4. Segmentation visualization of CRATE
-In Figure 4, we visualize self-attention maps from a supervised **CRATE** with 8x8 patches (similar to the ones shown in [DINO](https://github.com/facebookresearch/dino) :t-rex:):
+In the following figure, we visualize self-attention maps from a supervised **CRATE** with 8x8 patches (similar to the ones shown in [DINO](https://github.com/facebookresearch/dino) :t-rex:).
 <p align="center">
     <img src="figs/fig_seg.png" width="900"\>
 </p>
 <p align="center">
 
+We also discover a surprising empirical phenomenon where each attention head in **CRATE** retains its own semantics.
+<p align="center">
+    <img src="figs/fig_seg_headwise.png" width="900"\>
+</p>
+<p align="center">
 
-## Construct a CRATE model
+
+## Autoencoding
+
+We can also use our theory to build a principled autoencoder, which has the following architecture.
+<p align="center">
+    <img src="figs/fig_arch_autoencoder.png" width="900"\>
+</p>
+<p align="center">
+
+It has many of the same empirical properties as the base **CRATE** model, such as segmented attention maps and amenability to layer-wise analysis. We train it on the masked autoencoding task (calling this model **CRATE-MAE**), and it achieves comparable performance in linear probing and reconstruction quality as the base ViT-MAE.
+
+<p align="center">
+    <img src="figs/fig_masked_reconstruction.png" width="900"\>
+</p>
+<p align="center">
+
+
+
+## Constructing a CRATE model
 A CRATE model can be defined using the following code, (the below parameters are specified for CRATE-Tiny)
 ```python
 from model.crate import CRATE
@@ -110,33 +137,67 @@ Replace `CKPT_DIR` with the path for the pretrained CRATE weight, and replace `D
 
 ## Demo for the segmentations
 
-We provide a Colab Jupyter notebook to visualize the emerged segmentations from a supervised **CRATE**. The demo provides visualizations for Figure 4 and Figure 5.
+We provide a Colab Jupyter notebook to visualize the emerged segmentations from a supervised **CRATE**. The demo provides visualizations which match the segmentation figures above.
 
 Link: [crate-emergence.ipynb](https://colab.research.google.com/drive/1rYn_NlepyW7Fu5LDliyBDmFZylHco7ss?usp=sharing) (in colab)
 
 <p align="center">
-    <img src="figs/fig5.png" width="900"\>
+    <img src="figs/fig_seg_headwise.png" width="900"\>
 </p>
 <p align="center">
 
+## Constructing a CRATE autoencoding model
+A CRATE-autoencoding model (specifically **CRATE-MAE-Base**) can be defined using the following code:
+```python
+from model.crate_ae.crate_ae import mae_crate_base
+model = mae_crate_base()
+```
+The other sizes in the paper are also importable in that way. Modifying the `model/crate_ae/crate_ae.py` file will let you initialize and serve your own config.
+
+### Pre-trained Checkpoints (ImageNet-1K)
+| model | `dim` | `n_heads` | `depth` | pre-trained checkpoint |
+| -------- | -------- | -------- | -------- | -------- | 
+| **CRATE-MAE-S**(mall)    | 576   | 12   | 12 | TODO | 
+| **CRATE-MAE-B**(ase)    | 768   | 12   | 12 | [link](https://drive.google.com/file/d/11i5BMwymqOsunq44WD3omN5mS6ZREQPO/view?usp=sharing) | 
+
+## Training/Fine-Tuning CRATE-MAE
+To train or fine-tune a CRATE-MAE model on ImageNet-1K, please refer to the [codebase on MAE training](https://github.com/facebookresearch/mae) from Meta FAIR. The `models_mae.py` file in that codebase can be replaced with the contents of `model/crate_ae/crate_ae.py`, and the rest of the code should go through with minimal alterations.
 
 ## Reference
-For technical details and full experimental results, please check the [crate paper](https://arxiv.org/abs/2306.01129) and [crate segmentation paper](https://arxiv.org/abs/2308.16271). Please consider citing our work if you find it helpful to yours:
+For technical details and full experimental results, please check the [CRATE paper](https://arxiv.org/abs/2306.01129), [CRATE segmentation paper](https://arxiv.org/abs/2308.16271), [CRATE autoencoding paper](https://openreview.net/forum?id=PvyOYleymy), or [the long-form overview paper](https://arxiv.org/abs/2311.13110). Please consider citing our work if you find it helpful to yours:
 
 ```
-@inproceedings{yu2023whitebox,
+@article{yu2024white,
   title={White-Box Transformers via Sparse Rate Reduction},
-  author={Yaodong Yu and Sam Buchanan and Druv Pai and Tianzhe Chu and Ziyang Wu and Shengbang Tong and Benjamin David Haeffele and Yi Ma},
-  booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
-  year={2023},
-  url={https://openreview.net/forum?id=THfl8hdVxH}
+  author={Yu, Yaodong and Buchanan, Sam and Pai, Druv and Chu, Tianzhe and Wu, Ziyang and Tong, Shengbang and Haeffele, Benjamin and Ma, Yi},
+  journal={Advances in Neural Information Processing Systems},
+  volume={36},
+  year={2024}
 }
 ```
 ```
-@article{yu2023emergence,
+@inproceedings{yu2024emergence,
   title={Emergence of Segmentation with Minimalistic White-Box Transformers},
   author={Yu, Yaodong and Chu, Tianzhe and Tong, Shengbang and Wu, Ziyang and Pai, Druv and Buchanan, Sam and Ma, Yi},
-  journal={arXiv preprint arXiv:2308.16271},
+  booktitle={Conference on Parsimony and Learning},
+  pages={72--93},
+  year={2024},
+  organization={PMLR}
+}
+```
+```
+@inproceedings{pai2023masked,
+  title={Masked Completion via Structured Diffusion with White-Box Transformers},
+  author={Pai, Druv and Buchanan, Sam and Wu, Ziyang and Yu, Yaodong and Ma, Yi},
+  booktitle={The Twelfth International Conference on Learning Representations},
+  year={2023}
+}
+```
+```
+@article{yu2023white,
+  title={White-Box Transformers via Sparse Rate Reduction: Compression Is All There Is?},
+  author={Yu, Yaodong and Buchanan, Sam and Pai, Druv and Chu, Tianzhe and Wu, Ziyang and Tong, Shengbang and Bai, Hao and Zhai, Yuexiang and Haeffele, Benjamin D and Ma, Yi},
+  journal={arXiv preprint arXiv:2311.13110},
   year={2023}
 }
 ```
