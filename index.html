@@ -301,9 +301,9 @@ grouped together, etc. -->
                 CRATE is a transformer-like architecture which is constructed through first principles and enjoys a rich theoretical framework. It also achieves competitive performance on a variety of standard tasks, including
             </em>
             <ul style="text-align: left;">
-                <li><em>classification (in our <a href="#crate_neurips_paper" class="internal_link">NeurIPS 2023 paper</a>);</em></li>
-                <li><em>semantic segmentation (in our <a href="#crate_cpal_paper" class="internal_link">CPAL 2024 paper</a>);</em></li>
-                <li><em>(masked) autoencoding (in our <a href="#crate_iclr_paper" class="internal_link">ICLR 2024 paper</a>);</em></li>
+                <li><em>classification (in our <a href="#crate_original_paper" class="internal_link">NeurIPS 2023 paper</a>);</em></li>
+                <li><em>semantic segmentation (in our <a href="#crate_seg_paper" class="internal_link">CPAL 2024 paper</a>);</em></li>
+                <li><em>(masked) autoencoding (in our <a href="#crate_ae_paper" class="internal_link">ICLR 2024 paper</a>);</em></li>
                 <li><em>other kinds of self-supervised representation learning (in our JMLR submission);</em></li>
                 <li><em>and language modeling (in our JMLR submission).</em></li>
             </ul>
@@ -316,7 +316,7 @@ grouped together, etc. -->
         <img src="./assets/CRATE_pipeline.svg" class="big-figure" />
         <div style="height: 1em"></div>
 
-        <section id="crate_neurips_section">
+        <section id="crate_original_paper">
             <h2>White-Box Transformers via Sparse Rate Reduction (@ NeurIPS 2023)</h2>
             
             <!-- Links -->
@@ -403,7 +403,7 @@ grouped together, etc. -->
             </p>
         </section>
 
-        <section id="crate_cpal_section">
+        <section id="crate_seg_paper">
             <h2>Emergence of Segmentation with Minimalistic White-Box Transformers (@ CPAL 2024)</h2>
             <!-- Links -->
             <div class="button_list">
@@ -459,7 +459,7 @@ grouped together, etc. -->
             <p>
                 An interesting phenomenon of CRATE is that <i>even when trained on supervised classification</i>, it <i>learns to segment</i> the input images, with such segmentations being easily recoverable via attention maps, as in the following pipeline (similar to DINO).
             </p>
-            <img src="./assets/CRATE_segmentation.svg" class="reg-figure"/>
+            <img src="./assets/CRATE_attention.svg" class="reg-figure"/>
             <p>
                 Such segmentations were only previously seen in transformer-like architectures using a complex self-supervised training mechanism as in DINO, yet <b>in CRATE, segmentation emerges as a byproduct of supervised classification training</b>. In particular, the model does not obtain any <i>a priori</i> segmentation information at any time. Below, we show some example segmentations.
             </p>
@@ -470,7 +470,7 @@ grouped together, etc. -->
             <img src="./assets/CRATE_semantic_heads.svg" class="reg-figure"/>
         </section>
 
-        <section id="crate_iclr_section">
+        <section id="crate_ae_paper">
             <h2>Masked Autoencoding via Structured Diffusion with White-Box Transformers (@ ICLR 2024)</h2>
 
             <!-- Links -->
