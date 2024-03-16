@@ -121,6 +121,49 @@ type="text/javascript"
             });
         });
         </script>
+
+        <script type="text/javascript">
+        function toggleBibtex(bibtex_id) {
+            const $bibtex = $(bibtex_id);
+            $bibtex.css(
+                "display",
+                $bibtex.css("display") === "none" ? "block" : "none",
+            );
+        }
+        </script>
+        <style>
+            html {
+                scroll-behavior: smooth;
+            }
+
+            code {
+                font-family: Courier New, Courier, monospace;
+                white-space: pre;
+                width: 100%;
+                max-width: 100%;
+                overflow: scroll;
+                display: block;
+                background-color: #f7f7f7;
+                padding: 1em;
+                box-sizing: border-box;
+                border-radius: 0.5em;
+            }
+
+            .internal_link {
+                color: green!important;
+            }
+
+            .external_link {
+                color: blue!important;
+            }
+
+            .button_list {
+                display: flex;
+                justify-content: center;
+                gap: 0.5em 1em;
+                flex-wrap: wrap;
+            }
+        </style>
     </head>
 
     <body>
@@ -128,7 +171,7 @@ type="text/javascript"
             White-Box Transformers via Sparse Rate Reduction
         </h1>
 
-        <div style="text-align: center; font-weight: 600">@ NeurIPS 2023 (and more!)</div>
+        <div style="text-align: center; font-weight: 600">@ NeurIPS 2023, CPAL 2024, ICLR 2024</div>
         <div style="height: 1em"></div>
 
         <!-- Authors -->
@@ -202,14 +245,7 @@ grouped together, etc. -->
         <div style="height: 1em"></div>
 
         <!-- Links -->
-        <div
-            style="
-            display: flex;
-            justify-content: center;
-            gap: 0.5em 1em;
-            flex-wrap: wrap;
-            "
-        >
+        <div class="button_list">
             <a href="https://github.com/Ma-Lab-Berkeley/CRATE" target="_blank">
                 <button>
                     <i class="ti ti-brand-github"></i>
@@ -222,16 +258,7 @@ grouped together, etc. -->
                     arXiv
                 </button>
             </a>
-            <script type="text/javascript">
-            function toggleBibtex() {
-                const $bibtex = $("#bibtex");
-                $bibtex.css(
-                    "display",
-                    $bibtex.css("display") === "none" ? "block" : "none",
-                );
-            }
-            </script>
-            <a onclick="toggleBibtex()">
+            <a onclick="toggleBibtex('#bibtex_journal_paper')">
                 <button>
                     <i class="ti ti-book-2"></i>
                     BibTeX
@@ -239,79 +266,116 @@ grouped together, etc. -->
             </a>
         </div>
 
-        <section id="bibtex" style="display: none">
+        <section id="bibtex_journal_paper" style="display: none">
             <div style="height: 1em"></div>
             <div style="height: 1em"></div>
             <p>
-                <code
-                    style="
-                    font-family:
-                    Courier New,
-                    Courier,
-                    monospace;
-                    white-space: nowrap;
-                    width: 100%;
-                    max-width: 100%;
-                    overflow: scroll;
-                    display: block;
-                    background-color: #f7f7f7;
-                    padding: 1em;
-                    box-sizing: border-box;
-                    border-radius: 0.5em;
-                    "
-                >
-                    @misc{yu2023whitebox,<br />
-                    &nbsp;&nbsp;&nbsp;title={<br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;White-Box Transformers via Sparse Rate Reduction:<br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Compression Is All There Is?<br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;},<br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;author={<br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yaodong Yu and Sam Buchanan and Druv Pai<br /> 
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and Tianzhe Chu and Ziyang Wu and Shengbang Tong and Hao Bai<br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and Yuexiang Zhai and Benjamin D. Haeffele and Yi Ma<br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;},<br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;year={2023},<br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;eprint={2311.13110},<br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;archivePrefix={arXiv},<br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;primaryClass={cs.LG}<br />
-                    }
-                </code>
+                <code>@misc{yu2023whitebox,
+    title={
+        White-Box Transformers via Sparse Rate Reduction:
+        Compression Is All There Is?
+    },
+    author={
+        Yaodong Yu and Sam Buchanan and Druv Pai
+        and Tianzhe Chu and Ziyang Wu and Shengbang Tong and Hao Bai
+        and Yuexiang Zhai and Benjamin D. Haeffele and Yi Ma
+    },
+    year={2023},
+    eprint={2311.13110},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}</code>
             </p>
         </section>
+        <div style="height: 1em"></div>
 
         <!-- tldr -->
-        <p style="
-            text-align: center;
-            text-wrap: balance;
-            max-width: 70%;
-            ">
+        <div style="
+        margin: auto; 
+        text-align: left; 
+        max-width: 70%;"
+        >
+            <p>
             <strong>TL;DR:</strong>
             <em>
-                CRATE is a transformer-like architecture which is constructed through first principles and has competitive performance on standard tasks while also enjoying many side benefits.
+                CRATE is a transformer-like architecture which is constructed through first principles and enjoys a rich theoretical framework. It also achieves competitive performance on a variety of standard tasks, including
             </em>
-        </p>
+            <ul style="text-align: left;">
+                <li><em>classification (in our <a href="#crate_neurips_paper" class="internal_link">NeurIPS 2023 paper</a>);</em></li>
+                <li><em>semantic segmentation (in our <a href="#crate_cpal_paper" class="internal_link">CPAL 2024 paper</a>);</em></li>
+                <li><em>(masked) autoencoding (in our <a href="#crate_iclr_paper" class="internal_link">ICLR 2024 paper</a>);</em></li>
+                <li><em>other kinds of self-supervised representation learning (in our JMLR submission);</em></li>
+                <li><em>and language modeling (in our JMLR submission).</em></li>
+            </ul>
+            </p>
+        </div>
+
         <div style="height: 1em"></div>
 
         <!-- Big figure -->
         <img src="./assets/CRATE_pipeline.svg" class="big-figure" />
         <div style="height: 1em"></div>
 
-        <section>
-            <h2>What is CRATE?</h2>
+        <section id="crate_neurips_section">
+            <h2>White-Box Transformers via Sparse Rate Reduction (@ NeurIPS 2023)</h2>
+            
+            <!-- Links -->
+            <div class="button_list">
+                <a href="https://github.com/Ma-Lab-Berkeley/CRATE" target="_blank">
+                    <button>
+                        <i class="ti ti-brand-github"></i>
+                        GitHub
+                    </button>
+                </a>
+                <a href="https://arxiv.org/abs/2306.01129" target="_blank">
+                    <button>
+                        <i class="ti ti-article"></i>
+                        arXiv
+                    </button>
+                </a>
+                <a onclick="toggleBibtex('#bibtex_neurips_paper')">
+                    <button>
+                        <i class="ti ti-book-2"></i>
+                        BibTeX
+                    </button>
+                </a>
+            </div>
+
+            <section id="bibtex_neurips_paper" style="display: none">
+                <div style="height: 1em"></div>
+                <div style="height: 1em"></div>
+                <pre>
+                    <code>@article{yu2024white,
+    title={White-Box Transformers via Sparse Rate Reduction},
+    author={
+        Yu, Yaodong and Buchanan, Sam and Pai, Druv 
+        and Chu, Tianzhe and Wu, Ziyang and Tong, Shengbang 
+        and Haeffele, Benjamin and Ma, Yi
+    },
+    journal={Advances in Neural Information Processing Systems},
+    volume={36},
+    year={2024}
+}</code>
+                </pre>
+            </section>
+            <div style="height: 1em"></div>
+
+
+            <h3>What is CRATE?</h3>
             <p>
                 <b>CRATE</b> (<b>C</b>oding <b>RATE</b> transformer) is a white-box (mathematically interpretable) transformer architecture, where each layer performs a single step of an alternating minimization algorithm to optimize the sparse rate reduction objective
-                \[\max_{f}\mathbb{E}_{\boldsymbol{Z} = f(\boldsymbol{X})}[\Delta R(\boldsymbol{Z} \mid \boldsymbol{U}_{[K]}) - \lambda \|\boldsymbol{Z}\|_{0}],\]
-                where the \(\ell^{0}\) norm promotes the sparsity of the final token representations \(\boldsymbol{Z} = f(\boldsymbol{X})\).
+                \[\max_{f}\mathbb{E}_{\boldsymbol{Z} = f(\boldsymbol{X})}[\Delta R(\boldsymbol{Z} \mid \boldsymbol{U}_{[K]}) - \lambda \|\boldsymbol{Z}\|_{0}] = \max_{f}\mathbb{E}_{\boldsymbol{Z} = f(\boldsymbol{X})}[R(\boldsymbol{Z}) - R^{c}(\boldsymbol{Z} \mid \boldsymbol{U}_{[K]}) - \lambda \|\boldsymbol{Z}\|_{0}],\]
+                where \(R\) and \(R^{c}\) are measures of compression of the final token representations \(\boldsymbol{Z} = f(\boldsymbol{X})\) w.r.t. different codebooks, and the \(\ell^{0}\) norm promotes the sparsity of \(\boldsymbol{Z}\). Overall, the sparse rate reduction objective promotes compact and sparse representations.
+            </p>
+            <p>
                 The function \(f\) is defined as
                 \[f = f^{L} \circ f^{L - 1} \circ \cdots \circ f^{1} \circ f^{\mathrm{pre}},\]
-                where \(f^{\mathrm{pre}}\) is the pre-processing mapping, and \(f^{\ell}\) is the \(\ell^{\mathrm{th}}\)-layer forward mapping that transforms the token distribution to optimize the above sparse rate reduction objective incrementally. More specifically, \(f^{\ell}\) transforms the token representations \(\boldsymbol{Z}^{\ell}\), which are the representations at the input of the \(\ell^{\mathrm{th}}\) layer, to \(\boldsymbol{Z}^{\ell + 1}\) via the \(\texttt{MSSA}\) (<b>M</b>ulti-Head <b>S</b>ubspace <b>S</b>elf-<b>A</b>ttention) block and the 
-                \(\texttt{ISTA}\) (<b>I</b>terative <b>S</b>hrinkage-<b>T</b>hresholding <b>A</b>lgorithm) block, i.e.,
-                \[\boldsymbol{Z}^{\ell + 1} = f^{\ell}(\boldsymbol{Z}^{\ell}) = \texttt{ISTA}(\boldsymbol{Z}^{\ell} + \texttt{MSSA}(\boldsymbol{Z}^{\ell})).\]
+                where \(f^{\mathrm{pre}}\) is the pre-processing mapping, and \(f^{\ell}\) is the \(\ell^{\mathrm{th}}\)-layer forward mapping that transforms the token distribution to optimize the above sparse rate reduction objective incrementally.
+                <img src="./assets/sparse_rate_reduction.svg" class="narrow-figure"/>
+                In particular, \(f^{\ell}\) implements a step of a parameterized optimization algorithm on the sparse rate reduction, thus making the representations more compact and sparse.
             </p>
-        </section>
-
-        <section>
-            <h2>Architecture</h2>
+            
+            <h3>Architecture</h3>
 
             <p>
                 The following figure presents an overview of the general CRATE architecture:
@@ -322,12 +386,14 @@ grouped together, etc. -->
             </p>
             <img src="./assets/CRATE_layer.svg" class="reg-figure"/>
             <p>
-                The full architecture is simply a concatenation of such layers, with some initial tokenizer and final task-specific architecture (i.e., a classification head).
+                The full architecture is simply a concatenation of such layers, with some initial tokenizer and final task-specific architecture (i.e., a classification head). <b>Overall, CRATE is similar to a transformer, with two differences:</b>
+                <ul>
+                    <li>in each attention head, the \(\boldsymbol{Q}\), \(\boldsymbol{K}\), and \(\boldsymbol{V}\) weight matrices are weight-tied, i.e., set to be equal;</li>
+                    <li>and the nonlinearity following each attention layer is no longer a multi-layer perceptron (MLP), but rather a more structured operator (\(\texttt{ISTA}\)) with sparse outputs.</li>
+                </ul>
             </p>
-        </section>
-
-        <section>
-            <h2>Classification</h2>
+            
+            <h3>Classification</h3>
             <p>
                 Below, the classification pipeline for CRATE is depicted. It is virtually identical to the popular vision transformer.
             </p>
@@ -337,8 +403,58 @@ grouped together, etc. -->
             </p>
         </section>
 
-        <section>
-            <h2>Segmentation and Object Detection</h2>
+        <section id="crate_cpal_section">
+            <h2>Emergence of Segmentation with Minimalistic White-Box Transformers (@ CPAL 2024)</h2>
+            <!-- Links -->
+            <div class="button_list">
+                <a href="https://github.com/Ma-Lab-Berkeley/CRATE" target="_blank">
+                    <button>
+                        <i class="ti ti-brand-github"></i>
+                        GitHub
+                    </button>
+                </a>
+                <a href="https://arxiv.org/abs/2308.16271" target="_blank">
+                    <button>
+                        <i class="ti ti-article"></i>
+                        arXiv
+                    </button>
+                </a>
+                <a onclick="toggleBibtex('#bibtex_cpal_paper')">
+                    <button>
+                        <i class="ti ti-book-2"></i>
+                        BibTeX
+                    </button>
+                </a>
+                <a href="https://colab.research.google.com/drive/1rYn_NlepyW7Fu5LDliyBDmFZylHco7ss?usp=sharing" target="_blank">
+                    <button>
+                        <i class="ti ti-pencil"></i>
+                        Colab Demo
+                    </button>
+                </a>
+            </div>
+
+            <section id="bibtex_cpal_paper" style="display: none">
+                <div style="height: 1em"></div>
+                <div style="height: 1em"></div>
+                <pre>
+                    <code>@inproceedings{yu2024emergence,
+    title={
+        Emergence of Segmentation with Minimalistic White-Box Transformers
+    },
+    author={
+        Yu, Yaodong and Chu, Tianzhe and Tong, Shengbang and Wu, Ziyang 
+        and Pai, Druv and Buchanan, Sam and Ma, Yi
+    },
+    booktitle={Conference on Parsimony and Learning},
+    pages={72--93},
+    year={2024},
+    organization={PMLR}
+}</code>
+                </pre>
+            </section>
+            <div style="height: 1em"></div>
+
+            <h3>Segmentation and Object Detection</h3>
 
             <p>
                 An interesting phenomenon of CRATE is that <i>even when trained on supervised classification</i>, it <i>learns to segment</i> the input images, with such segmentations being easily recoverable via attention maps, as in the following pipeline (similar to DINO).
@@ -354,31 +470,64 @@ grouped together, etc. -->
             <img src="./assets/CRATE_semantic_heads.svg" class="reg-figure"/>
         </section>
 
-        <section>
+        <section id="crate_iclr_section">
+            <h2>Masked Autoencoding via Structured Diffusion with White-Box Transformers (@ ICLR 2024)</h2>
+
+            <!-- Links -->
+            <div class="button_list">
+                <a href="https://github.com/Ma-Lab-Berkeley/CRATE" target="_blank">
+                    <button>
+                        <i class="ti ti-brand-github"></i>
+                        GitHub
+                    </button>
+                </a>
+                <a href="https://openreview.net/forum?id=PvyOYleymy" target="_blank">
+                    <button>
+                        <i class="ti ti-article"></i>
+                        OpenReview
+                    </button>
+                </a>
+                <a onclick="toggleBibtex('#bibtex_iclr_paper')">
+                    <button>
+                        <i class="ti ti-book-2"></i>
+                        BibTeX
+                    </button>
+                </a>
+                <a href="https://colab.research.google.com/drive/1rYn_NlepyW7Fu5LDliyBDmFZylHco7ss?usp=sharing" target="_blank">
+                    <button>
+                        <i class="ti ti-pencil"></i>
+                        Colab Demo (TODO: REPLACE)
+                    </button>
+                </a>
+            </div>
+
+            <section id="bibtex_iclr_paper" style="display: none">
+                <div style="height: 1em"></div>
+                <div style="height: 1em"></div>
+                <pre>
+                    <code>@inproceedings{pai2024masked,
+    title={Masked Completion via Structured Diffusion with White-Box Transformers},
+    author={Pai, Druv and Buchanan, Sam and Wu, Ziyang and Yu, Yaodong and Ma, Yi},
+    booktitle={The Twelfth International Conference on Learning Representations},
+    year={2024}
+}</code>
+                </pre>
+            </section>
+            <div style="height: 1em"></div>
+
             <h2>Autoencoding</h2>
 
             <p>
                 We extend CRATE to <i>autoencoding</i> by using the following pipeline.
                 <img src="./assets/CRATE_ae_pipeline.svg" class="reg-figure"/>
-                We construct each layer of the decoder \(f^{\ell}\) in a diffusion/optimal transport-inspired way: if we think of \(f^{\ell}\) as transporting the probability mass of its input distribution in some way, then \(g^{L - \ell}\) is constructed to be an approximate inverse of this transportation map. The full encoder and decoder layers are given below.
-                <img src="./assets/CRATE_ae_layer.svg" class="reg-figure"/>
-                This variant of the CRATE architecture achieves competitive performance on the masked autoencoding task, as shown by the below examples.
-                <img src="./assets/CRATE_mae_examples.svg" class="reg-figure"/>
-                In addition, it obtains the same emergent properties (shown above) as the classification-trained CRATE.
-            </p>
-        </section>
-
-        <section>
-            <h2>Theoretical Principles</h2>
-            <p>
-                We derive the encoder architecture via <i>unrolled optimization</i> on the sparse rate reduction. The representations which optimize the sparse rate reduction are compressed and sparse, as in the below figure, where we depict them as being realized by some encoder \(f\):
-                <img src="./assets/sparse_rate_reduction.svg" class="narrow-figure"/>
-                In CRATE, the compression operator \(\boldsymbol{Z}^{\ell} \to \boldsymbol{Z}^{\ell + 1/2}\) and sparsification operator \(\boldsymbol{Z}^{\ell + 1/2} \to \boldsymbol{Z}^{\ell + 1}\) are approximate (proximal) gradient steps on different parts of the sparse rate reduction objective.
-                <br/>
-                <br/>
                 To derive the decoder architecture, we propose a novel framework of <i>structured denoising-diffusion</i>, which is analogous to the common (ordinary) denoising-diffusion framework popularly used for generative modelling of imagery data. Our framework relies on a quantitative connection between the compression operator and the score function (as used in denoising-diffusion models), as shown below:
                 <img src="./assets/structured_denoising_diffusion.svg" class="narrow-figure"/>
-                The encoder and decoder are derived through discretizations of the structured denoising and diffusion processes, respectively. Importantly, the encoder derived from unrolled optimization and the encoder derived from structured denoising have the same architecture, which is described above.
+                The encoder and decoder are derived through discretizations of the structured denoising and diffusion processes, respectively. Importantly, the encoder derived from structured denoising is exactly the previously described CRATE architecture. The full encoder and decoder layers are given below.
+                <img src="./assets/CRATE_ae_layer.svg" class="reg-figure"/>
+                This CRATE autoencoding architecture achieves competitive performance on the masked autoencoding task, as shown by the below examples.
+                <img src="./assets/CRATE_mae_reconstruction.svg" class="reg-figure"/> 
+                In addition, it obtains the same emergent properties as the classification-trained CRATE, such as interpretable attention maps in the encoder.
+                <img src="./assets/CRATE_mae_segmentation_examples.svg" class="reg-figure"/> 
             </p>
         </section>
 
