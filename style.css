@@ -1,168 +1,199 @@
 body {
-    min-height: 100%;
-    background-color: #fff;
-    font-family: "Open Sans", sans-serif;
-    color: #333;
-    margin: 0 auto;
-    padding: 2em 2em;
-    box-sizing: border-box;
-    line-height: 1.5em;
-  }
-  
-  h1 {
-    font-size: 2em;
-    text-align: center;
-    line-height: 1.5em;
-    margin-bottom: 0.5em;
-  }
-  h2 {
-    font-size: 1.3em;
-    text-align: center;
-    font-weight: 600;
-  }
-  
-  a,
-  a:link,
-  a:visited {
-    color: inherit;
-  }
-  
-  section {
-    padding-bottom: 1em;
-    max-width: 50em;
-    margin: 0 auto;
-  }
-  
-  p {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  button {
-    /* background-color: #4c50af; [> Green <] */
-    background-color: #fff; /* Green */
-    border-radius: 0.5em;
-    border: 1px solid #333;
-    padding: 0.5em 2em;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-  }
- 
-  .narrow-figure {
-    display: block;
-    margin: 0 auto;
-    width: 30em;
-    max-width: 100%;
-  }
+  min-height: 100%;
+  background-color: #fff;
+  font-family: "Open Sans", sans-serif;
+  color: #333;
+  margin: 0 auto;
+  padding: 2em 2em;
+  box-sizing: border-box;
+  line-height: 1.5em;
+}
 
-  .reg-figure /*,
-  .reg-figure-narrow,
-  .reg-figure-very-narrow */ {
-    display: block;
-    margin: 0 auto;
-    width: 50em;
-    max-width: 100%;
-  }
-  
-  .big-figure /*,
-  .big-figure-narrow,
-  .big-figure-very-narrow */ {
-    display: block;
-    margin: 0 auto;
-    width: 70em;
-    max-width: 100%;
-  }
+h1 {
+  font-size: 2em;
+  text-align: center;
+  line-height: 1.5em;
+  margin-bottom: 0.5em;
+  font-family: Lato;
+}
+h2 {
+  font-size: 1.3em;
+  text-align: center;
+  font-weight: 600;
+}
 
-  /*
-  .reg-figure-narrow,
-  .reg-figure-very-narrow,
-  .big-figure-narrow, 
-  .big-figure-very-narrow {
+
+a,
+a:link,
+a:visited {
+  color: inherit;
+}
+
+section {
+  padding-bottom: 1em;
+  max-width: 50em;
+  margin: 0 auto;
+}
+
+p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
+  /* background-color: #4c50af; [> Green <] */
+  background-color: #fff; /* Green */
+  border-radius: 0.5em;
+  border: 1px solid #333;
+  padding: 0.5em 2em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+code {
+  font-family: Courier New, Courier, monospace;
+  white-space: pre;
+  width: 100%;
+  max-width: 100%;
+  overflow: scroll;
+  display: block;
+  background-color: #f7f7f7;
+  padding: 1em;
+  box-sizing: border-box;
+  border-radius: 0.5em;
+}
+
+.narrow-figure {
+  display: block;
+  margin: 0 auto;
+  width: 30em;
+  max-width: 100%;
+}
+
+.reg-figure /*,
+.reg-figure-narrow,
+.reg-figure-very-narrow */ {
+  display: block;
+  margin: 0 auto;
+  width: 50em;
+  max-width: 100%;
+}
+
+.big-figure /*,
+.big-figure-narrow,
+.big-figure-very-narrow */ {
+  display: block;
+  margin: 0 auto;
+  width: 70em;
+  max-width: 100%;
+}
+
+/*
+.reg-figure-narrow,
+.reg-figure-very-narrow,
+.big-figure-narrow, 
+.big-figure-very-narrow {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .reg-figure,
+  .big-figure {
     display: none;
   }
-  
-  @media screen and (max-width: 800px) {
-    .reg-figure,
-    .big-figure {
-      display: none;
-    }
-    .reg-figure-narrow,
-    .big-figure-narrow {
-      display: block;
-    }
+  .reg-figure-narrow,
+  .big-figure-narrow {
+    display: block;
   }
-  */
-  
-  @media screen and (max-width: 480px) {
-    .reg-figure-narrow,
-    .big-figure-narrow {
-      display: none;
-    }
-    .reg-figure-very-narrow,
-    .big-figure-very-narrow {
-      display: block;
-    }
+}
+*/
+
+
+
+.internal_link {
+  color: green!important;
+}
+
+.external_link {
+  color: blue!important;
+}
+
+.button_list {
+  display: flex;
+  justify-content: center;
+  gap: 0.5em 1em;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 480px) {
+  .reg-figure-narrow,
+  .big-figure-narrow {
+    display: none;
   }
-  
-  .square-container {
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    gap: 0.5em 1em;
-    position: relative;
-    vertical-align: middle;
+  .reg-figure-very-narrow,
+  .big-figure-very-narrow {
+    display: block;
   }
-  
-  @media screen and (max-width: 800px) {
-    .square-container > div:nth-child(1) {
-      font-size: 0.75em;
-    }
-  }
-  
-  @media screen and (max-width: 640px) {
-    .square-container {
-      flex-wrap: wrap;
-    }
-    .square-container > div:nth-child(1) {
-      font-size: 0.65em;
-    }
-    .square-container > div:nth-child(2) {
-      width: 18em;
-    }
-  }
-  
-  @media screen and (max-width: 480px) {
-    .square-container > div:nth-child(1) {
-      font-size: 0.375em;
-    }
-  }
-  
-  /* Children are (matrices/LaTeX, text). */
+}
+
+.square-container {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 0.5em 1em;
+  position: relative;
+  vertical-align: middle;
+}
+
+@media screen and (max-width: 800px) {
   .square-container > div:nth-child(1) {
-    vertical-align: middle;
-    text-align: center;
-    text-wrap: nowrap;
+    font-size: 0.75em;
   }
-  
-  .square-container > div:nth-child(1) > * {
-    vertical-align: middle;
+}
+
+@media screen and (max-width: 640px) {
+  .square-container {
+    flex-wrap: wrap;
   }
-  
+  .square-container > div:nth-child(1) {
+    font-size: 0.65em;
+  }
   .square-container > div:nth-child(2) {
-    text-align: left;
+    width: 18em;
   }
-  
-  /* Math */
-  @media screen and (max-width: 640px) {
-    .katex-display {
-      font-size: 0.875em;
-    }
+}
+
+@media screen and (max-width: 480px) {
+  .square-container > div:nth-child(1) {
+    font-size: 0.375em;
   }
-  @media screen and (max-width: 480px) {
-    .katex-display {
-      font-size: 0.75em;
-    }
+}
+
+/* Children are (matrices/LaTeX, text). */
+.square-container > div:nth-child(1) {
+  vertical-align: middle;
+  text-align: center;
+  text-wrap: nowrap;
+}
+
+.square-container > div:nth-child(1) > * {
+  vertical-align: middle;
+}
+
+.square-container > div:nth-child(2) {
+  text-align: left;
+}
+
+/* Math */
+@media screen and (max-width: 640px) {
+  .katex-display {
+    font-size: 0.875em;
   }
+}
+@media screen and (max-width: 480px) {
+  .katex-display {
+    font-size: 0.75em;
+  }
+}

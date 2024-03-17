@@ -131,44 +131,11 @@ type="text/javascript"
             );
         }
         </script>
-        <style>
-            html {
-                scroll-behavior: smooth;
-            }
-
-            code {
-                font-family: Courier New, Courier, monospace;
-                white-space: pre;
-                width: 100%;
-                max-width: 100%;
-                overflow: scroll;
-                display: block;
-                background-color: #f7f7f7;
-                padding: 1em;
-                box-sizing: border-box;
-                border-radius: 0.5em;
-            }
-
-            .internal_link {
-                color: green!important;
-            }
-
-            .external_link {
-                color: blue!important;
-            }
-
-            .button_list {
-                display: flex;
-                justify-content: center;
-                gap: 0.5em 1em;
-                flex-wrap: wrap;
-            }
-        </style>
     </head>
 
     <body>
-        <h1 style="font-family: Lato; margin: 0.25em 0">
-            White-Box Transformers via Sparse Rate Reduction
+        <h1 style="margin: 0.25em 0">
+            White-Box Transformers via Sparse Rate Reduction: Compression is All There Is?
         </h1>
 
         <div style="text-align: center; font-weight: 600">@ NeurIPS 2023, CPAL 2024, ICLR 2024</div>
@@ -289,35 +256,34 @@ grouped together, etc. -->
         </section>
         <div style="height: 1em"></div>
 
-        <!-- tldr -->
-        <div style="
-        margin: auto; 
-        text-align: left; 
-        max-width: 70%;"
-        >
-            <p>
-            <strong>TL;DR:</strong>
-            <em>
-                CRATE is a transformer-like architecture which is constructed through first principles and enjoys a rich theoretical framework. It also achieves competitive performance on a variety of standard tasks, including
-            </em>
-            <ul style="text-align: left;">
-                <li><em>classification (in our <a href="#crate_original_paper" class="internal_link">NeurIPS 2023 paper</a>);</em></li>
-                <li><em>semantic segmentation (in our <a href="#crate_seg_paper" class="internal_link">CPAL 2024 paper</a>);</em></li>
-                <li><em>(masked) autoencoding (in our <a href="#crate_ae_paper" class="internal_link">ICLR 2024 paper</a>);</em></li>
-                <li><em>other kinds of self-supervised representation learning (in our JMLR submission);</em></li>
-                <li><em>and language modeling (in our JMLR submission).</em></li>
-            </ul>
-            </p>
-        </div>
-
-        <div style="height: 1em"></div>
-
         <!-- Big figure -->
         <img src="./assets/CRATE_pipeline.svg" class="big-figure" />
         <div style="height: 1em"></div>
 
+        <!-- tldr -->
+        <section>
+            <h2>Summary</h2>
+
+            <p>
+                <em><b>CRATE</b> is a transformer-like architecture which is constructed through first principles, enjoys a rich theoretical framework, and achieves competitive performance across diverse training setups.</em>
+            </p>
+            
+            <p>
+                At the top of the page, we have linked a long-form manuscript explaining the CRATE architecture in full detail. Below, we summarize the numerous sub-projects that have developed the CRATE architecture. These consist of:
+                <ul>
+                    <li><a href="#crate_original_paper" class="internal_link">Our NeurIPS 2023 paper</a>, which developed the original CRATE framework and applied it to vision classification.</li>
+                    <li><a href="#crate_seg_paper" class="internal_link">Our CPAL 2024 paper</a>, which used the learned representations in classification-trained CRATE models for semantic segmentation tasks.</li>
+                    <li><a href="#crate_ae_paper" class="internal_link">Our ICLR 2024 paper</a>, which extended the CRATE framework to self-supervised learning tasks, including (masked) autoencoding.</li>
+                </ul>
+                Code, paper links, bibliographic information, and short write-ups are listed below for each project.
+            </p>
+        </section>
+
+        <div style="height: 1em"></div>
+
         <section id="crate_original_paper">
-            <h2>White-Box Transformers via Sparse Rate Reduction (@ NeurIPS 2023)</h2>
+            <h1>White-Box Transformers via Sparse Rate Reduction</h1>
+            <h2>@ NeurIPS 2023</h2>
             
             <!-- Links -->
             <div class="button_list">
@@ -360,8 +326,11 @@ grouped together, etc. -->
             </section>
             <div style="height: 1em"></div>
 
+            <img src="./assets/CRATE_encoding_pipeline.svg" class="reg-figure" />
+            <div style="height: 1em"></div>
 
-            <h3>What is CRATE?</h3>
+
+            <h2>What is CRATE?</h2>
             <p>
                 <b>CRATE</b> (<b>C</b>oding <b>RATE</b> transformer) is a white-box (mathematically interpretable) transformer architecture, where each layer performs a single step of an alternating minimization algorithm to optimize the sparse rate reduction objective
                 \[\max_{f}\mathbb{E}_{\boldsymbol{Z} = f(\boldsymbol{X})}[\Delta R(\boldsymbol{Z} \mid \boldsymbol{U}_{[K]}) - \lambda \|\boldsymbol{Z}\|_{0}] = \max_{f}\mathbb{E}_{\boldsymbol{Z} = f(\boldsymbol{X})}[R(\boldsymbol{Z}) - R^{c}(\boldsymbol{Z} \mid \boldsymbol{U}_{[K]}) - \lambda \|\boldsymbol{Z}\|_{0}],\]
@@ -371,11 +340,13 @@ grouped together, etc. -->
                 The function \(f\) is defined as
                 \[f = f^{L} \circ f^{L - 1} \circ \cdots \circ f^{1} \circ f^{\mathrm{pre}},\]
                 where \(f^{\mathrm{pre}}\) is the pre-processing mapping, and \(f^{\ell}\) is the \(\ell^{\mathrm{th}}\)-layer forward mapping that transforms the token distribution to optimize the above sparse rate reduction objective incrementally.
-                <img src="./assets/sparse_rate_reduction.svg" class="narrow-figure"/>
+            </p>
+            <img src="./assets/sparse_rate_reduction.svg" class="narrow-figure"/>
+            <p>
                 In particular, \(f^{\ell}\) implements a step of a parameterized optimization algorithm on the sparse rate reduction, thus making the representations more compact and sparse.
             </p>
             
-            <h3>Architecture</h3>
+            <h2>Architecture</h2>
 
             <p>
                 The following figure presents an overview of the general CRATE architecture:
@@ -393,7 +364,7 @@ grouped together, etc. -->
                 </ul>
             </p>
             
-            <h3>Classification</h3>
+            <h2>Classification</h2>
             <p>
                 Below, the classification pipeline for CRATE is depicted. It is virtually identical to the popular vision transformer.
             </p>
@@ -404,7 +375,8 @@ grouped together, etc. -->
         </section>
 
         <section id="crate_seg_paper">
-            <h2>Emergence of Segmentation with Minimalistic White-Box Transformers (@ CPAL 2024)</h2>
+            <h1>Emergence of Segmentation with Minimalistic White-Box Transformers</h1>
+            <h2>@ CPAL 2024</h2>
             <!-- Links -->
             <div class="button_list">
                 <a href="https://github.com/Ma-Lab-Berkeley/CRATE" target="_blank">
@@ -454,7 +426,7 @@ grouped together, etc. -->
             </section>
             <div style="height: 1em"></div>
 
-            <h3>Segmentation and Object Detection</h3>
+            <h2>Segmentation and Object Detection</h2>
 
             <p>
                 An interesting phenomenon of CRATE is that <i>even when trained on supervised classification</i>, it <i>learns to segment</i> the input images, with such segmentations being easily recoverable via attention maps, as in the following pipeline (similar to DINO).
@@ -471,7 +443,8 @@ grouped together, etc. -->
         </section>
 
         <section id="crate_ae_paper">
-            <h2>Masked Autoencoding via Structured Diffusion with White-Box Transformers (@ ICLR 2024)</h2>
+            <h1>Masked Autoencoding via Structured Diffusion with White-Box Transformers</h1>
+            <h2>@ ICLR 2024</h2>
 
             <!-- Links -->
             <div class="button_list">
@@ -519,20 +492,28 @@ grouped together, etc. -->
 
             <p>
                 We extend CRATE to <i>autoencoding</i> by using the following pipeline.
-                <img src="./assets/CRATE_ae_pipeline.svg" class="reg-figure"/>
-                To derive the decoder architecture, we propose a novel framework of <i>structured denoising-diffusion</i>, which is analogous to the common (ordinary) denoising-diffusion framework popularly used for generative modelling of imagery data. Our framework relies on a quantitative connection between the compression operator and the score function (as used in denoising-diffusion models), as shown below:
-                <img src="./assets/structured_denoising_diffusion.svg" class="narrow-figure"/>
-                The encoder and decoder are derived through discretizations of the structured denoising and diffusion processes, respectively. Importantly, the encoder derived from structured denoising is exactly the previously described CRATE architecture. The full encoder and decoder layers are given below.
-                <img src="./assets/CRATE_ae_layer.svg" class="reg-figure"/>
-                This CRATE autoencoding architecture achieves competitive performance on the masked autoencoding task, as shown by the below examples.
-                <img src="./assets/CRATE_mae_reconstruction.svg" class="reg-figure"/> 
-                In addition, it obtains the same emergent properties as the classification-trained CRATE, such as interpretable attention maps in the encoder.
-                <img src="./assets/CRATE_mae_segmentation_examples.svg" class="reg-figure"/> 
             </p>
+            <img src="./assets/CRATE_ae_pipeline.svg" class="reg-figure"/>
+            <p>
+                To derive the decoder architecture, we propose a novel framework of <i>structured denoising-diffusion</i>, which is analogous to the common (ordinary) denoising-diffusion framework popularly used for generative modelling of imagery data. Our framework relies on a quantitative connection between the compression operator and the score function (as used in denoising-diffusion models), as shown below:
+            </p>
+            <img src="./assets/structured_denoising_diffusion.svg" class="narrow-figure"/>
+            <p>
+                The encoder and decoder are derived through discretizations of the structured denoising and diffusion processes, respectively. Importantly, the encoder derived from structured denoising is exactly the previously described CRATE architecture. The full encoder and decoder layers are given below.
+            </p>
+            <img src="./assets/CRATE_ae_layer.svg" class="reg-figure"/>
+            <p>
+                This CRATE autoencoding architecture achieves competitive performance on the masked autoencoding task, as shown by the below examples.
+            </p>
+            <img src="./assets/CRATE_mae_reconstruction.svg" class="reg-figure"/> 
+            <p>
+                In addition, it obtains the same emergent properties as the classification-trained CRATE, such as interpretable attention maps in the encoder.
+            </p>
+            <img src="./assets/CRATE_mae_segmentation_examples.svg" class="reg-figure"/> 
         </section>
 
         <section>
-            <h2>Acknowledgements</h2>
+            <h1>Acknowledgements</h1>
             <p>
                 This work is partially supported by the ONR grant N00014-22-1-2102, and the joint Simons Foundation-NSF DMS grant 2031899.
             </p>
