@@ -40,6 +40,63 @@ p {
   margin-right: auto;
 }
 
+.title-spacer {
+  height: 1em;
+}
+
+.figure-spacer {
+  height: 1em;
+}
+
+.name-spacer {
+  width: 1.25em;
+}
+
+#authors-div {
+  gap: 0.4em 1.25em;
+}
+
+/* fonts and etc at mobile width */
+@media screen and (max-width: 480px) {
+  /* mobile styles here */
+
+  p, a, li {
+    font-size: 0.8750em;
+  }
+
+  h1 {
+    font-size: 28px;
+    line-height: 1.5em;
+    margin-bottom: 0.5em;
+  }
+  h2 {
+    font-size: 1.3em;
+  }
+
+
+
+  #affiliations-list {
+    font-size: 0.8750em;
+  }
+
+  #authors-div {
+    gap: 0.1em 1.25em;
+  }
+
+  .title-spacer {
+    height: 0.5em;
+  }
+
+  .name-spacer {
+    width: 0.75em;
+  }
+
+  .figure-spacer {
+    height: 0.5em;
+  }
+}
+
+
 button {
   /* background-color: #4c50af; [> Green <] */
   background-color: #fff; /* Green */
@@ -51,6 +108,10 @@ button {
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
+
+  @media screen and (max-width: 480px) {
+    font-size: 14px;
+  }
 }
 
 code {
@@ -195,5 +256,22 @@ code {
 @media screen and (max-width: 480px) {
   .katex-display {
     font-size: 0.75em;
+  }
+}
+
+#srr-div {
+  display: block;
+}
+
+#srr-div-mobile {
+  display: none;
+}
+
+@media screen and (max-width: 760px) {
+  #srr-div {
+    display: none;
+  }
+  #srr-div-mobile {
+    display: block;
   }
 }
