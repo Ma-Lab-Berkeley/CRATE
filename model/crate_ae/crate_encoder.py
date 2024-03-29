@@ -81,7 +81,7 @@ class Attention(nn.Module):
 
 
 class Block_CRATE(nn.Module):
-    def __init__(self, dim, heads, dim_head, dropout=0., ista=0.1):
+    def __init__(self, dim, heads, dim_head, dropout=0., ista=0.1, lambd = 0.5):
         super().__init__()
         self.layers = nn.ModuleList([])
         self.heads = heads
@@ -90,7 +90,7 @@ class Block_CRATE(nn.Module):
             nn.ModuleList(
                 [
                     PreNorm(dim, Attention(dim, heads=heads, dim_head=dim_head, dropout=dropout)),
-                    PreNorm(dim, FeedForward(dim, dim, dropout=dropout, step_size=ista))
+                    PreNorm(dim, FeedForward(dim, dim, dropout=dropout, step_size=ista, lambd=lambd))
                 ]
             )
         )
