@@ -7,7 +7,7 @@ from timm.models.vision_transformer import PatchEmbed, Block as ViTBlock
 from model.crate_ae.crate_decoder import Block_CRATE as CRATEDecoderBlock
 from model.crate_ae.crate_encoder import Block_CRATE as CRATEEncoderBlock
 from model.crate_ae.pos_embed import get_2d_sincos_pos_embed
-
+import math
 
 class MaskedAutoencoderViT(nn.Module):
     """ Masked Autoencoder with VisionTransformer backbone
@@ -17,7 +17,7 @@ class MaskedAutoencoderViT(nn.Module):
             self, encoder_block, decoder_block, img_size=224, patch_size=16, in_chans=3,
             embed_dim=1024, depth=24, num_heads=16,
             decoder_embed_dim=512, decoder_depth=8, decoder_num_heads=16,
-            mlp_ratio=4., norm_layer=nn.LayerNorm, norm_pix_loss=False,
+            mlp_ratio=4., norm_layer=nn.LayerNorm, norm_pix_loss=False, lambd = 0.5
     ):
         super().__init__()
         self.heads = num_heads
@@ -35,7 +35,7 @@ class MaskedAutoencoderViT(nn.Module):
         try:
             self.blocks = nn.ModuleList(
                 [  # activates for CRATE blocks
-                    encoder_block(dim=embed_dim, heads=num_heads, dim_head=embed_dim // num_heads)
+                    encoder_block(dim=embed_dim, heads=num_heads, dim_head=embed_dim // num_heads, lambd = lambd)
                     for i in range(depth)]
             )
         except TypeError:
@@ -232,13 +232,66 @@ class MaskedAutoencoderViT(nn.Module):
 
         return loss
 
+
+    ### functions for visualizing attention
+    def interpolate_pos_encoding(self, x, w, h):
+        npatch = x.shape[1] - 1
+        N = self.decoder_pos_embed.shape[1] - 1
+        if npatch == N and w == h:
+            return self.decoder_pos_embed
+        class_pos_embed = self.decoder_pos_embed[:, 0]
+        patch_pos_embed = self.decoder_pos_embed[:, 1:]
+        dim = x.shape[-1]
+        w0 = w // self.patch_size
+        h0 = h // self.patch_size
+        # we add a small number to avoid floating point error in the interpolation
+        # see discussion at https://github.com/facebookresearch/dino/issues/8
+        w0, h0 = w0 + 0.1, h0 + 0.1
+        patch_pos_embed = nn.functional.interpolate(
+            patch_pos_embed.reshape(1, int(math.sqrt(N)), int(math.sqrt(N)), dim).permute(0, 3, 1, 2),
+            scale_factor=(w0 / math.sqrt(N), h0 / math.sqrt(N)),
+            mode='bicubic',
+        )
+        assert int(w0) == patch_pos_embed.shape[-2] and int(h0) == patch_pos_embed.shape[-1]
+        patch_pos_embed = patch_pos_embed.permute(0, 2, 3, 1).view(1, -1, dim)
+        return torch.cat((class_pos_embed.unsqueeze(0), patch_pos_embed), dim=1)
+    
     def forward(self, imgs, mask_ratio=0.75):
         latent, mask, ids_restore = self.forward_encoder(imgs, mask_ratio)
         pred = self.forward_decoder(latent, ids_restore)  # [N, L, p*p*3]
         loss = self.forward_loss(imgs, latent, pred, mask)
         return loss, pred, mask
 
+    def prepare_tokens(self, x):
+        B, nc, w, h = x.shape
+        x = self.patch_embed(x)  # patch linear embedding
 
+        # add the [CLS] token to the embed patch tokens
+        cls_tokens = self.cls_token.expand(B, -1, -1)
+        x = torch.cat((cls_tokens, x), dim=1)
+
+        # add positional encoding to each token
+        x = x + self.interpolate_pos_encoding(x, w, h)
+        return x
+
+    def get_selfattention_enc(self, x, layer=10):
+        x = self.prepare_tokens(x)
+        for i, blk in enumerate(self.blocks):
+            if i < layer:
+                x = blk(x)
+            else:
+                # return attention of the last block
+                return blk(x, return_attention=True)
+            
+    def get_last_key_enc(self, x, layer=10):
+        x = self.prepare_tokens(x)
+        for i, blk in enumerate(self.blocks):
+            if i < layer:
+                x = blk(x)
+            else:
+                # return sharedqkv of the last block
+                return blk(x, return_key=True)
+                        
 def mae_vit_base(**kwargs):
     model = MaskedAutoencoderViT(
         ViTBlock, ViTBlock,

@@ -20,7 +20,7 @@ class PreNorm(nn.Module):
 
 
 class FeedForward(nn.Module):
-    def __init__(self, dim, hidden_dim, dropout=0., step_size=0.1):
+    def __init__(self, dim, hidden_dim, dropout=0., step_size=0.1, lambd = 0.5):
         super().__init__()
         self.weight = nn.Parameter(torch.Tensor(dim, dim))
         with torch.no_grad():
@@ -28,7 +28,7 @@ class FeedForward(nn.Module):
         self.step_size = step_size
         # self.lambd = 0.1
         # self.lambd = 0.5
-        self.lambd = 5.0
+        self.lambd = lambd
 
     def forward(self, x):
         # compute D^T * D * x
@@ -62,12 +62,16 @@ class Attention(nn.Module):
             nn.Dropout(dropout)
         ) if project_out else nn.Identity()
 
-    def forward(self, x):
-        w = rearrange(self.qkv(x), 'b n (h d) -> b h n d', h=self.heads)
+    def forward(self, x, return_attention=False, return_key = False):
+        if return_key:
+            return self.qkv(x)
+        w = rearrange(self.qkv(x), 'b n (h d) -> b h n d', h = self.heads)
 
         dots = torch.matmul(w, w.transpose(-1, -2)) * self.scale
 
         attn = self.attend(dots)
+        if return_attention:
+            return attn
         attn = self.dropout(attn)
 
         out = torch.matmul(attn, w)
@@ -91,8 +95,12 @@ class Block_CRATE(nn.Module):
             )
         )
 
-    def forward(self, x):
+    def forward(self, x, return_attention=False, return_key=False):
         for attn, ff in self.layers:
+            if return_attention:
+                return attn(x, return_attention=True)
+            if return_key:
+                return attn(x, return_key=True)
             grad_x = attn(x) + x
             x = ff(grad_x)
         return x
