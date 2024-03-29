@@ -25,6 +25,7 @@ class MaskedAutoencoderViT(nn.Module):
 
         # --------------------------------------------------------------------------
         # MAE encoder specifics
+        self.patch_size = patch_size
         self.patch_embed = PatchEmbed(img_size, patch_size, in_chans, embed_dim, strict_img_size=False)
         num_patches = self.patch_embed.num_patches
 
