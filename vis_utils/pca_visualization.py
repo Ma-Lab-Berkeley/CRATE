@@ -6,7 +6,7 @@ import PIL.Image
 import numpy
 import torch
 from pathlib import Path
-from shared_extractor import CRATEExtractor
+from vis_utils.shared_extractor import CRATEExtractor
 from tqdm import tqdm
 import numpy as np
 from PIL import Image
