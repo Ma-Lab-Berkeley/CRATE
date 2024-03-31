@@ -140,7 +140,7 @@ def plot_pca(pil_image: Image.Image, pca_image: numpy.ndarray, last_components_r
         
             
 
-def plot_pca_mask(pil_image: Image.Image, pca_image: numpy.ndarray, save_resized=True, th = 0.5):
+def plot_pca_mask(pil_image: Image.Image, pca_image: numpy.ndarray, save_resized=True, th = 0.5, inv = False):
     """
     finding pca of a set of images.
     :param pil_image: The original PIL image.
@@ -165,7 +165,7 @@ def plot_pca_mask(pil_image: Image.Image, pca_image: numpy.ndarray, save_resized
             comp_max = comp.max(axis=(0, 1))
             comp_img = (comp - comp_min) / (comp_max - comp_min)
             
-            comp_img = comp_img > threshold
+            comp_img = comp_img > threshold if not inv else comp_img < threshold
             # pseudo_mask = densecrf(np.array(I_new), bipartition)
             
             comp_img = ndimage.binary_fill_holes(comp_img>=0.5)
