@@ -68,7 +68,7 @@ In the following figure, we measure the compression term [ $R^{c}$ ($\boldsymbol
 <p align="center">
 
 ### 4. Segmentation visualization of CRATE
-In the following figure, we visualize self-attention maps from a supervised **CRATE** with 8x8 patches (similar to the ones shown in [DINO](https://github.com/facebookresearch/dino) :t-rex:).
+In the following figure, we visualize self-attention maps from a supervised **CRATE** model with 8x8 patches (similar to the ones shown in [DINO](https://github.com/facebookresearch/dino) :t-rex:).
 <p align="center">
     <img src="figs/fig_seg.png" width="900"\>
 </p>
@@ -160,7 +160,7 @@ Replace `CKPT_DIR` with the path for the pretrained CRATE weight, and replace `D
 ## Demo: Emergent segmentation in CRATE
 
 CRATE models exhibit emergent segmentation in their self-attention maps solely through supervised training.
-We provide a Colab Jupyter notebook to visualize the emerged segmentations from a supervised **CRATE**. The demo provides visualizations which match the segmentation figures above.
+We provide a Colab Jupyter notebook to visualize the emerged segmentations from a supervised **CRATE** model. The demo provides visualizations which match the segmentation figures above.
 
 Link: [crate-emergence.ipynb](https://colab.research.google.com/drive/1rYn_NlepyW7Fu5LDliyBDmFZylHco7ss?usp=sharing) (in colab)
 
@@ -185,6 +185,14 @@ The other sizes in the paper are also importable in that way. Modifying the `mod
 
 ## Training/Fine-Tuning CRATE-MAE
 To train or fine-tune a CRATE-MAE model on ImageNet-1K, please refer to the [codebase on MAE training](https://github.com/facebookresearch/mae) from Meta FAIR. The `models_mae.py` file in that codebase can be replaced with the contents of `model/crate_ae/crate_ae.py`, and the rest of the code should go through with minimal alterations.
+
+
+## Demo: Emergent segmentation in CRATE-MAE
+
+CRATE-MAE models also exhibit emergent segmentation in their self-attention maps.
+We provide a Colab Jupyter notebook to visualize the emerged segmentations from a **CRATE-MAE** model. The demo provides visualizations which match the segmentation figures above.
+
+Link: [crate-mae.ipynb](https://colab.research.google.com/drive/1xcD-xcxprfgZuvwsRKuDroH7xMjr0Ad3?usp=sharing) (in colab)
 
 # Reference
 For technical details and full experimental results, please check the [CRATE paper](https://arxiv.org/abs/2306.01129), [CRATE segmentation paper](https://arxiv.org/abs/2308.16271), [CRATE autoencoding paper](https://openreview.net/forum?id=PvyOYleymy), or [the long-form overview paper](https://arxiv.org/abs/2311.13110). Please consider citing our work if you find it helpful to yours:
